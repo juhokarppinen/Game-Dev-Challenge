@@ -45,11 +45,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BallController.cs" />
-     <Compile Include="Assets\BrickController.cs" />
-     <Compile Include="Assets\CameraController.cs" />
-     <Compile Include="Assets\ExplosionController.cs" />
-     <Compile Include="Assets\PaddleController.cs" />
+     <Compile Include="Assets\LifeCounterController.cs" />
+     <Compile Include="Assets\LivesController.cs" />
+     <Compile Include="Assets\Scripts\BallController.cs" />
+     <Compile Include="Assets\Scripts\BrickController.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\ExplosionController.cs" />
+     <Compile Include="Assets\Scripts\PaddleController.cs" />
+     <Compile Include="Assets\Scripts\ScoreController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
