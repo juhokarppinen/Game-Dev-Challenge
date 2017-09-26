@@ -57,11 +57,16 @@ public class PaddleController : MonoBehaviour
 		if (autoPlay) {
 			x = ball.transform.position.x;
 		}
+
 		transform.position = new Vector3 (x, Y, Z);
+
 		if (Left < -playAreaWidth)
 			Left = -playAreaWidth;
 		if (Right > playAreaWidth)
 			Right = playAreaWidth;
+
+		if (Input.GetKeyDown (KeyCode.B))
+			MakeSmaller ();
 	}
 
 	public void Explode ()
@@ -71,5 +76,16 @@ public class PaddleController : MonoBehaviour
 		newExplosion.transform.SetParent (particleSystemParent.transform);
 		AudioSource.PlayClipAtPoint (explosionSound, transform.position);
 		gameObject.SetActive (false);
+	}
+
+
+	public void MakeSmaller ()
+	{
+		gameObject.transform.localScale = new Vector3 (0.5f, 1f, 1f);
+	}
+
+	public void MakeNormal ()
+	{
+		gameObject.transform.localScale = new Vector3 (1f, 1f, 1f);
 	}
 }

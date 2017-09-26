@@ -3,30 +3,36 @@ using System.Collections;
 
 public class BallController : MonoBehaviour
 {
+	private const string LAUNCH_BUTTON = "Jump";
+	private const float STATIONARY_LIMIT = 0.001f;
+	private const float VELOCITY_COMPONENT_LIMIT = 0.2f;
+	
 	public float ballLostY = -1;
-	public float ballLostZ = -10;
-	public float launchVelocity = 1000;
+	public float initialSpeed;
+
 	public AudioClip wallBounceSound;
 	public AudioClip paddleBounceSound;
 	public AudioClip brickBounceSound;
 	public AudioClip ballLostSound;
 
-	private const string LAUNCH_BUTTON = "Jump";
-	private const float STATIONARY_LIMIT = 0.001f;
-
 	private bool shouldBeReplaced = true;
+	private int speedLevel = 0;
+	private int paddleHits = 0;
 	private float defaultX;
 	private float defaultY;
 	private float defaultZ;
+	private float[] speedLevels = { 10.0f, 12.0f, 14.0f, 16.0f, 18.0f };
 	private Rigidbody rigidBody;
 	private PaddleController paddle;
 	private AudioClip collisionClip;
 	private LivesController lives;
 
+
 	public bool ShouldBeReplaced {
 		get { return shouldBeReplaced; }
 		set { shouldBeReplaced = value; }
 	}
+
 
 	void Start ()
 	{
@@ -38,6 +44,7 @@ public class BallController : MonoBehaviour
 		lives = FindObjectOfType<LivesController> ();
 	}
 
+
 	void Update ()
 	{
 		if (LaunchButtonPressed ()) {
@@ -45,8 +52,11 @@ public class BallController : MonoBehaviour
 		}
 		if (HasFallen ()) {
 			lives.Decrease ();
+			speedLevel = 0;
+			paddleHits = 0;
 			AudioSource.PlayClipAtPoint (ballLostSound, transform.position);
 			ReplaceBall ();
+			paddle.MakeNormal ();
 		}
 		if (IsStationary ()) {
 			FollowPaddle ();
@@ -59,6 +69,7 @@ public class BallController : MonoBehaviour
 		return Input.GetButtonDown (LAUNCH_BUTTON);
 	}
 
+
 	private void ReplaceBall ()
 	{
 		if (ShouldBeReplaced) {
@@ -69,42 +80,118 @@ public class BallController : MonoBehaviour
 		}
 	}
 
+
 	private void LaunchBall ()
 	{
-		if (!IsStationary ()) {
+		if (!IsStationary ())
 			return;
-		}
-		Vector3 force = new Vector3 (Random.value - .5f, 0, Random.value);
-		force.Normalize ();
-		rigidBody.AddForce (force * launchVelocity);
+		
+		Vector3 direction = new Vector3 (Random.value - .5f, 0, Random.value);
+		direction.Normalize ();
+		float x = direction.x * speedLevels [0];
+		float z = direction.z * speedLevels [0];
+		rigidBody.velocity = new Vector3 (x, 0, z);
 	}
+
 
 	private bool HasFallen ()
 	{
-		return transform.position.y <= ballLostY /*|| transform.position.z <= ballLostZ*/;
+		return transform.position.y <= ballLostY;
 	}
+
 
 	private bool IsStationary ()
 	{
 		return rigidBody.velocity.magnitude < STATIONARY_LIMIT;
 	}
 
+
 	private void FollowPaddle ()
 	{
 		transform.position = new Vector3 (paddle.X, defaultY, defaultZ);
 	}
 
+
 	void OnCollisionEnter (Collision collision)
 	{
 		Collider other = collision.collider;
 		collisionClip = null;
-		if (other.CompareTag ("Paddle"))
+
+		if (other.CompareTag ("Paddle")) {
 			collisionClip = paddleBounceSound;
-		if (other.CompareTag ("Wall"))
+			paddleHits += 1;
+			if (speedLevel < 1 && paddleHits >= 4) {
+				speedLevel = 1;
+			}
+			if (speedLevel < 2 && paddleHits >= 12) {
+				speedLevel = 2;
+			}
+		}
+
+		if (other.CompareTag ("Wall")) {
 			collisionClip = wallBounceSound;
-		if (other.CompareTag ("Brick"))
+			if (other.gameObject.name == "Top Wall") {
+				paddle.MakeSmaller ();
+			}
+		}
+
+		if (other.CompareTag ("Brick")) {
 			collisionClip = brickBounceSound;
+			if (speedLevel < 3 && other.name == "Orange Brick") {
+				speedLevel = 3;
+			}
+			if (speedLevel < 4 && other.name == "Red Brick") {
+				speedLevel = 4;
+			}
+		}
+
+		/* This prevents the ball from changing its speed erroneously when the
+		 * physics engine glitches during collisions. */
+		SetSpeed (speedLevel);
+
+		/* Sometimes one of the velocity's components approaches zero, which often 
+		 * makes the ball "stuck" on an axis. This method checks that this never happens. */
+		MaintainDirection ();
+
 		if (collisionClip)
 			AudioSource.PlayClipAtPoint (collisionClip, transform.position);
+	}
+
+
+	private void SetSpeed (int level)
+	{
+		Vector3 direction = rigidBody.velocity.normalized;
+		float magnitude = speedLevels [level];
+		float x = direction.x * magnitude;
+		float z = direction.z * magnitude;
+		rigidBody.velocity = new Vector3 (x, 0f, z);
+	}
+
+
+	private void MaintainDirection ()
+	{
+		float x = rigidBody.velocity.x;
+		float xMag = Mathf.Abs (x);
+		if (xMag < STATIONARY_LIMIT)
+			xMag = STATIONARY_LIMIT;
+		float xSign = x / xMag;
+		
+		float z = rigidBody.velocity.z;
+		float zMag = Mathf.Abs (z);
+		if (zMag < STATIONARY_LIMIT)
+			zMag = STATIONARY_LIMIT;
+		float zSign = z / zMag;
+
+		if (xMag < VELOCITY_COMPONENT_LIMIT) {
+			float newX = VELOCITY_COMPONENT_LIMIT * xSign;
+			rigidBody.velocity = new Vector3 (newX, 0, z);
+			SetSpeed (speedLevel);
+		}
+
+		if (zMag < VELOCITY_COMPONENT_LIMIT) {
+			float newZ = VELOCITY_COMPONENT_LIMIT * zSign;
+			rigidBody.velocity = new Vector3 (x, 0, newZ);
+			SetSpeed (speedLevel);			
+		}
 	}
 }
