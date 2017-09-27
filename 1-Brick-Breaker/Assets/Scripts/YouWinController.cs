@@ -5,6 +5,7 @@ using System.Collections;
 
 public class YouWinController : MonoBehaviour
 {
+	public AudioClip winSound;
 	private float ySpeed = 0f;
 	private float maxY = 18.0f;
 	private bool gameIsWon = false;
@@ -36,6 +37,7 @@ public class YouWinController : MonoBehaviour
 	{
 		ball.Explode ();
 		gameIsWon = true;
+		AudioSource.PlayClipAtPoint (winSound, transform.position);
 		ySpeed = 5f;
 	}
 }

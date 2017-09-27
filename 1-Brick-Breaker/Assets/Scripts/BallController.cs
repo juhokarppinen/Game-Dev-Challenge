@@ -5,7 +5,7 @@ public class BallController : MonoBehaviour
 {
 	private const string LAUNCH_BUTTON = "Jump";
 	private const float STATIONARY_LIMIT = 0.001f;
-	private const float VELOCITY_COMPONENT_LIMIT = 1.0f;
+	private const float VELOCITY_COMPONENT_LIMIT = 5.0f;
 	
 	public float ballLostY = -1;
 	public float initialSpeed;
@@ -174,29 +174,25 @@ public class BallController : MonoBehaviour
 	{
 		float x = rigidBody.velocity.x;
 		float xMag = Mathf.Abs (x);
-		if (xMag < STATIONARY_LIMIT)
-			xMag = STATIONARY_LIMIT;
 		float xSign = x >= 0f ? 1f : -1f;
 		
 		float z = rigidBody.velocity.z;
 		float zMag = Mathf.Abs (z);
-		if (zMag < STATIONARY_LIMIT)
-			zMag = STATIONARY_LIMIT;
 		float zSign = z >= 0f ? 1f : -1f;
 
+		Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 		if (xMag < VELOCITY_COMPONENT_LIMIT) {
-			float newX = VELOCITY_COMPONENT_LIMIT * xSign;
+			float newX = 2 * VELOCITY_COMPONENT_LIMIT * xSign;
 			rigidBody.velocity = new Vector3 (newX, 0, z);
 			SetSpeed (speedLevel);
 		}
 
 		if (zMag < VELOCITY_COMPONENT_LIMIT) {
-			float newZ = VELOCITY_COMPONENT_LIMIT * zSign;
+			float newZ = 2 * VELOCITY_COMPONENT_LIMIT * zSign;
 			rigidBody.velocity = new Vector3 (x, 0, newZ);
 			SetSpeed (speedLevel);			
 		}
 
-		Debug.Log (rigidBody.velocity);
 	}
 
 

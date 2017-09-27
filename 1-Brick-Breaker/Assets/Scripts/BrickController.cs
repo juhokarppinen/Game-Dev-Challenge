@@ -30,10 +30,11 @@ public class BrickController : MonoBehaviour
 		newExplosion.transform.SetParent (particleSystemParent.transform);
 		AudioSource.PlayClipAtPoint (explosionSound, transform.position);
 		score.AddPoints (scoreValue);
+
 		count--;
-		if (count <= 0) {
+		Debug.Log ("Bricks left: " + count);
+		if (count <= 0)
 			score.Win ();
-		}
 			
 		Destroy (gameObject);
 	}

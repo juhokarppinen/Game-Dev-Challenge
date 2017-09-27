@@ -3,15 +3,21 @@ using System.Collections;
 
 public class PaddleController : MonoBehaviour
 {
-	public float speedScale;
+	public float keyboardSpeedScale;
+	public float mouseSpeedScale;
 	public bool autoPlay;
 	public GameObject explosion;
 	public AudioClip explosionSound;
+	public AudioClip smallerSound;
 
 	private const float playAreaWidth = 14f;
 	private new Renderer renderer;
 	private BallController ball;
 	private GameObject particleSystemParent;
+
+	public bool IsSmall {
+		get { return gameObject.transform.localScale.x == 0.5f; }
+	}
 
 	public float X {
 		get { return transform.position.x; }
@@ -39,6 +45,7 @@ public class PaddleController : MonoBehaviour
 		set { transform.position = new Vector3 (value - HalfSize, Y, Z); }
 	}
 
+
 	void Start ()
 	{
 		particleSystemParent = GameObject.Find ("Particle Effects");
@@ -50,13 +57,22 @@ public class PaddleController : MonoBehaviour
 		ball = FindObjectOfType<BallController> ();
 	}
 
+
+	void Update ()
+	{
+		if (Input.GetKey (KeyCode.M) && Input.GetKey (KeyCode.I) && Input.GetKey (KeyCode.L))
+			autoPlay = !autoPlay;	
+	}
+
+
 	void FixedUpdate ()
 	{
-		float horizontalMovement = Input.GetAxisRaw ("Horizontal");
-		float x = X + horizontalMovement * Time.deltaTime * speedScale;
-		if (autoPlay) {
+		float mouseMovement = Input.GetAxisRaw ("Mouse X");
+		float keyboardMovement = Input.GetAxisRaw ("Horizontal");
+		float x = X + (keyboardMovement * keyboardSpeedScale + mouseMovement * mouseSpeedScale) * Time.deltaTime;
+
+		if (autoPlay)
 			x = ball.transform.position.x;
-		}
 
 		transform.position = new Vector3 (x, Y, Z);
 
@@ -68,6 +84,7 @@ public class PaddleController : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.B))
 			MakeSmaller ();
 	}
+
 
 	public void Explode ()
 	{
@@ -81,8 +98,12 @@ public class PaddleController : MonoBehaviour
 
 	public void MakeSmaller ()
 	{
+		if (IsSmall)
+			return;
 		gameObject.transform.localScale = new Vector3 (0.5f, 1f, 1f);
+		AudioSource.PlayClipAtPoint (smallerSound, transform.position);
 	}
+
 
 	public void MakeNormal ()
 	{
