@@ -1,13 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BallController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/YouWinController.cs">
     <Files>
-      <File FileName="Assets/Scripts/BrickController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ScoreController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PaddleController.cs" Line="1" Column="1" />
-      <File FileName="Assets/LifeCounterController.cs" Line="1" Column="1" />
-      <File FileName="Assets/LivesController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BallController.cs" Line="137" Column="8" />
+      <File FileName="Assets/Scripts/GameOverController.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/LivesController.cs" Line="34" Column="19" />
+      <File FileName="Assets/Scripts/BallController.cs" Line="205" Column="32" />
+      <File FileName="Assets/Scripts/BrickController.cs" Line="37" Column="4" />
+      <File FileName="Assets/Scripts/ScoreController.cs" Line="32" Column="15" />
+      <File FileName="Assets/Scripts/YouWinController.cs" Line="37" Column="19" />
+      <File FileName="Assets/Scripts/LifeCounterController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\PaddleController.cs" />
      <Compile Include="Assets\Scripts\RestartController.cs" />
      <Compile Include="Assets\Scripts\ScoreController.cs" />
+     <Compile Include="Assets\Scripts\YouWinController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

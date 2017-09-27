@@ -3,16 +3,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameOverController : MonoBehaviour
+public class YouWinController : MonoBehaviour
 {
 	private float ySpeed = 0f;
 	private float maxY = 18.0f;
-	private bool gameIsOver = false;
+	private bool gameIsWon = false;
+	private BallController ball;
 
+	void Start ()
+	{
+		ball = FindObjectOfType<BallController> ();
+	}
 
 	void Update ()
 	{
-		if (gameIsOver && Input.GetButtonDown ("Jump"))
+		if (gameIsWon && Input.GetButtonDown ("Jump"))
 			SceneManager.LoadScene ("Game_Level_01");
 
 		float x = transform.position.x;
@@ -29,7 +34,8 @@ public class GameOverController : MonoBehaviour
 
 	public void Lift ()
 	{
-		gameIsOver = true;
+		ball.Explode ();
+		gameIsWon = true;
 		ySpeed = 5f;
 	}
 }

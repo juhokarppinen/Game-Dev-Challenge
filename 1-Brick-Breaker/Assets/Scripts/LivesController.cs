@@ -27,11 +27,11 @@ public class LivesController : MonoBehaviour
 			LifeCounterController lifeCounter = lifeCounters [lives].GetComponent<LifeCounterController> ();
 			lifeCounter.Launch ();
 		} else {
-			GameOver ();
+			Lose ();
 		}
 	}
 
-	private void GameOver ()
+	private void Lose ()
 	{
 		gameOver.Lift ();
 		paddle.Explode ();

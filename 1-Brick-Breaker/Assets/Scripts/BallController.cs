@@ -5,7 +5,7 @@ public class BallController : MonoBehaviour
 {
 	private const string LAUNCH_BUTTON = "Jump";
 	private const float STATIONARY_LIMIT = 0.001f;
-	private const float VELOCITY_COMPONENT_LIMIT = 0.2f;
+	private const float VELOCITY_COMPONENT_LIMIT = 1.0f;
 	
 	public float ballLostY = -1;
 	public float initialSpeed;
@@ -115,6 +115,8 @@ public class BallController : MonoBehaviour
 	void OnCollisionEnter (Collision collision)
 	{
 		Collider other = collision.collider;
+		if (other.CompareTag ("Ground"))
+			return;
 		collisionClip = null;
 
 		if (other.CompareTag ("Paddle")) {
@@ -174,13 +176,13 @@ public class BallController : MonoBehaviour
 		float xMag = Mathf.Abs (x);
 		if (xMag < STATIONARY_LIMIT)
 			xMag = STATIONARY_LIMIT;
-		float xSign = x / xMag;
+		float xSign = x >= 0f ? 1f : -1f;
 		
 		float z = rigidBody.velocity.z;
 		float zMag = Mathf.Abs (z);
 		if (zMag < STATIONARY_LIMIT)
 			zMag = STATIONARY_LIMIT;
-		float zSign = z / zMag;
+		float zSign = z >= 0f ? 1f : -1f;
 
 		if (xMag < VELOCITY_COMPONENT_LIMIT) {
 			float newX = VELOCITY_COMPONENT_LIMIT * xSign;
@@ -193,5 +195,13 @@ public class BallController : MonoBehaviour
 			rigidBody.velocity = new Vector3 (x, 0, newZ);
 			SetSpeed (speedLevel);			
 		}
+
+		Debug.Log (rigidBody.velocity);
+	}
+
+
+	public void Explode ()
+	{
+		gameObject.SetActive (false);
 	}
 }
