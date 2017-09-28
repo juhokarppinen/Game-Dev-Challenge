@@ -7,7 +7,7 @@ public class YouWinController : MonoBehaviour
 {
 	public AudioClip winSound;
 	private float ySpeed = 0f;
-	private float maxY = 18.0f;
+	private float maxY = 21.0f;
 	private bool gameIsWon = false;
 	private BallController ball;
 
@@ -18,7 +18,7 @@ public class YouWinController : MonoBehaviour
 
 	void Update ()
 	{
-		if (gameIsWon && Input.GetButtonDown ("Jump"))
+		if (gameIsWon && Input.GetButtonDown ("Launch"))
 			SceneManager.LoadScene ("Game_Level_01");
 
 		float x = transform.position.x;

@@ -32,7 +32,6 @@ public class BrickController : MonoBehaviour
 		score.AddPoints (scoreValue);
 
 		count--;
-		Debug.Log ("Bricks left: " + count);
 		if (count <= 0)
 			score.Win ();
 			

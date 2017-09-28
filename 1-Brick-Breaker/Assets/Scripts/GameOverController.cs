@@ -7,13 +7,13 @@ public class GameOverController : MonoBehaviour
 {
 	public AudioClip loseSound;
 	private float ySpeed = 0f;
-	private float maxY = 18.0f;
+	private float maxY = 20.0f;
 	private bool gameIsOver = false;
 
 
 	void Update ()
 	{
-		if (gameIsOver && Input.GetButtonDown ("Jump"))
+		if (gameIsOver && Input.GetButtonDown ("Launch"))
 			SceneManager.LoadScene ("Game_Level_01");
 
 		float x = transform.position.x;

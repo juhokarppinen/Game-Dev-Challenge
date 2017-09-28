@@ -3,11 +3,10 @@ using System.Collections;
 
 public class BallController : MonoBehaviour
 {
-	private const string LAUNCH_BUTTON = "Jump";
+	private const string LAUNCH_BUTTON = "Launch";
 	private const float STATIONARY_LIMIT = 0.001f;
-	private const float VELOCITY_COMPONENT_LIMIT = 5.0f;
+	private const float VELOCITY_COMPONENT_LIMIT = 3.0f;
 	
-	public float ballLostY = -1;
 	public float initialSpeed;
 
 	public AudioClip wallBounceSound;
@@ -47,20 +46,22 @@ public class BallController : MonoBehaviour
 
 	void Update ()
 	{
-		if (LaunchButtonPressed ()) {
+		if (LaunchButtonPressed ())
 			LaunchBall ();
-		}
-		if (HasFallen ()) {
-			lives.Decrease ();
-			speedLevel = 0;
-			paddleHits = 0;
-			AudioSource.PlayClipAtPoint (ballLostSound, transform.position);
-			ReplaceBall ();
-			paddle.MakeNormal ();
-		}
-		if (IsStationary ()) {
+
+		if (IsStationary ())
 			FollowPaddle ();
-		}
+	}
+
+
+	private void LoseBall ()
+	{
+		lives.Decrease ();
+		speedLevel = 0;
+		paddleHits = 0;
+		AudioSource.PlayClipAtPoint (ballLostSound, transform.position);
+		ReplaceBall ();
+		paddle.MakeNormal ();
 	}
 
 
@@ -94,12 +95,6 @@ public class BallController : MonoBehaviour
 	}
 
 
-	private bool HasFallen ()
-	{
-		return transform.position.y <= ballLostY;
-	}
-
-
 	private bool IsStationary ()
 	{
 		return rigidBody.velocity.magnitude < STATIONARY_LIMIT;
@@ -112,12 +107,20 @@ public class BallController : MonoBehaviour
 	}
 
 
+	/* The only triggers in the game are "shredders" which catch any falling balls */
+	void OnTriggerEnter (Collider other)
+	{
+		LoseBall ();
+	}
+
+
 	void OnCollisionEnter (Collision collision)
 	{
+		collisionClip = null;
+
 		Collider other = collision.collider;
 		if (other.CompareTag ("Ground"))
 			return;
-		collisionClip = null;
 
 		if (other.CompareTag ("Paddle")) {
 			collisionClip = paddleBounceSound;
@@ -146,6 +149,7 @@ public class BallController : MonoBehaviour
 				speedLevel = 4;
 			}
 		}
+			
 
 		/* This prevents the ball from changing its speed erroneously when the
 		 * physics engine glitches during collisions. */
@@ -180,19 +184,19 @@ public class BallController : MonoBehaviour
 		float zMag = Mathf.Abs (z);
 		float zSign = z >= 0f ? 1f : -1f;
 
-		Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 		if (xMag < VELOCITY_COMPONENT_LIMIT) {
+			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 			float newX = 2 * VELOCITY_COMPONENT_LIMIT * xSign;
 			rigidBody.velocity = new Vector3 (newX, 0, z);
 			SetSpeed (speedLevel);
 		}
 
 		if (zMag < VELOCITY_COMPONENT_LIMIT) {
+			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 			float newZ = 2 * VELOCITY_COMPONENT_LIMIT * zSign;
 			rigidBody.velocity = new Vector3 (x, 0, newZ);
 			SetSpeed (speedLevel);			
 		}
-
 	}
 
 
