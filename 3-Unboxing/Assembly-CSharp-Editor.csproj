@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{043FF35B-BD82-CF44-0B1C-5F7F3946FFC8}</ProjectGuid>
+    <ProjectGuid>{357A6392-E1B8-F753-9444-03CA7287DFF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -64,7 +64,7 @@
      <None Include="Assets\Editor\Vuforia\CylinderTargetTextures\VuforiaMars_Images\authoringinfo.xml" />
      <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/juhokarppinen/Dropbox/home/unity-repos/tests/AR_Test1/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/Users/juhokarppinen/Dropbox/home/unity-repos/TIES474/3-Unboxing/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Samsung_T1/Applications/Unity 2017.2.0f3/Unity 2017.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -186,7 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{0DEE1971-D1C9-0E6A-CDC4-231B3DC0A122}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{7C39650E-4567-0B33-AF37-4C96543ADE87}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
