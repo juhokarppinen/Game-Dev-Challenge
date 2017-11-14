@@ -15,6 +15,10 @@ using Vuforia;
 public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
 	public GameObject sphere;
+	public float sphereScale;
+	public float xDisplacement;
+	public float yDisplacement;
+	public float zDisplacement;
 
 	#region PRIVATE_MEMBER_VARIABLES
 
@@ -84,13 +88,18 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 			component.enabled = true;
 
 		// Create new sphere
+		Vector3 spherePosition = transform.position + new Vector3 (
+			                         xDisplacement,
+			                         yDisplacement,
+			                         zDisplacement) * transform.localScale.x;
+
 		activeSphere = (GameObject)Instantiate (
 			sphere, 
-			transform.position + Vector3.back * .5f * transform.localScale.x,
+			spherePosition,
 			Quaternion.identity
 		);
 		activeSphere.transform.parent = gameObject.transform;
-		activeSphere.transform.localScale = new Vector3 (.25f, .25f, .25f);
+		activeSphere.transform.localScale = Vector3.one * sphereScale;
 	}
 
 
