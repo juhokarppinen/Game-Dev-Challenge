@@ -14,11 +14,14 @@ using Vuforia;
 /// </summary>
 public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
+	public string levelName;
 	public GameObject sphere;
 	public float sphereScale;
 	public float xDisplacement;
 	public float yDisplacement;
 	public float zDisplacement;
+
+	private GameManager gameManager;
 
 	#region PRIVATE_MEMBER_VARIABLES
 
@@ -31,6 +34,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
 	protected virtual void Start ()
 	{
+		gameManager = FindObjectOfType<GameManager> ();
+
 		mTrackableBehaviour = GetComponent<TrackableBehaviour> ();
 		if (mTrackableBehaviour)
 			mTrackableBehaviour.RegisterTrackableEventHandler (this);
@@ -71,6 +76,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
 	protected virtual void OnTrackingFound ()
 	{
+		gameManager.StartLevel (levelName);
+
 		var rendererComponents = GetComponentsInChildren<Renderer> (true);
 		var colliderComponents = GetComponentsInChildren<Collider> (true);
 		var canvasComponents = GetComponentsInChildren<Canvas> (true);
@@ -105,6 +112,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
 	protected virtual void OnTrackingLost ()
 	{
+		gameManager.ClearLevel ();
+
 		var rendererComponents = GetComponentsInChildren<Renderer> (true);
 		var colliderComponents = GetComponentsInChildren<Collider> (true);
 		var canvasComponents = GetComponentsInChildren<Canvas> (true);
