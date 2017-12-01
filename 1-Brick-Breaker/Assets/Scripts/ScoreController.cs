@@ -6,12 +6,10 @@ public class ScoreController : MonoBehaviour
 {
 	private int score = 0;
 	private Text scoreText;
-	private YouWinController win;
 
 	void Start ()
 	{
 		scoreText = GetComponent<Text> ();
-		win = FindObjectOfType<YouWinController> ();
 		UpdateText ();
 	}
 
@@ -29,6 +27,5 @@ public class ScoreController : MonoBehaviour
 
 	public void Win ()
 	{
-		win.Lift ();
 	}
 }

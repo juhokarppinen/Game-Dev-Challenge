@@ -3,18 +3,18 @@ using System.Collections;
 
 public class ExplosionController : MonoBehaviour
 {
-	private ParticleSystem particleSystem;
+	private ParticleSystem ps;
 
-	// Use this for initialization
+
 	void Start ()
 	{
-		particleSystem = GetComponent<ParticleSystem> ();
+		ps = GetComponent<ParticleSystem> ();
 	}
-	
-	// Update is called once per frame
+
+
 	void Update ()
 	{
-		if (!particleSystem.IsAlive ())
+		if (!ps.IsAlive ())
 			Destroy (gameObject);
 	}
 }

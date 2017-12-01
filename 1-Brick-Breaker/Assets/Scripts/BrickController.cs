@@ -9,7 +9,6 @@ public class BrickController : MonoBehaviour
 	public GameObject explosion;
 
 	private GameObject particleSystemParent;
-	private ScoreController score;
 
 	void Start ()
 	{
@@ -19,7 +18,6 @@ public class BrickController : MonoBehaviour
 		if (!particleSystemParent) {
 			particleSystemParent = new GameObject ("Particle Effects");
 		}
-		score = FindObjectOfType<ScoreController> ();
 	}
 
 
@@ -28,11 +26,11 @@ public class BrickController : MonoBehaviour
 		GameObject newExplosion = (GameObject)Instantiate (explosion, transform.position, Quaternion.identity);
 		newExplosion.transform.SetParent (particleSystemParent.transform);
 		SoundManager.Play (SoundManager.Sound.Explosion, transform.position);
-		score.AddPoints (scoreValue);
+		GameManager.AddToScore (scoreValue);
 
 		count--;
 		if (count <= 0)
-			score.Win ();
+			GameManager.Win ();
 			
 		Destroy (gameObject);
 	}

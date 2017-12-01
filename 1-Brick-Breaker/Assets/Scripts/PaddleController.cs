@@ -11,7 +11,6 @@ public class PaddleController : MonoBehaviour
 
 	private const float playAreaWidth = 14f;
 	private new Renderer renderer;
-	private BallController ball;
 	private GameObject particleSystemParent;
 
 	public bool IsSmall {
@@ -53,7 +52,6 @@ public class PaddleController : MonoBehaviour
 		}
 
 		renderer = GetComponentInChildren<Renderer> ();
-		ball = FindObjectOfType<BallController> ();
 	}
 
 
@@ -71,7 +69,7 @@ public class PaddleController : MonoBehaviour
 		float x = X + (keyboardMovement * keyboardSpeedScale + mouseMovement * mouseSpeedScale) * Time.deltaTime;
 
 		if (autoPlay)
-			x = ball.transform.position.x;
+			x = GameManager.GetBallX ();
 
 		transform.position = new Vector3 (x, Y, Z);
 
@@ -87,7 +85,6 @@ public class PaddleController : MonoBehaviour
 
 	public void Explode ()
 	{
-		ball.ShouldBeReplaced = false;
 		GameObject newExplosion = (GameObject)Instantiate (explosion, transform.position, Quaternion.identity);
 		newExplosion.transform.SetParent (particleSystemParent.transform);
 		SoundManager.Play (SoundManager.Sound.Explosion, transform.position);

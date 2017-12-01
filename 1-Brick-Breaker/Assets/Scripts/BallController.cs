@@ -9,7 +9,6 @@ public class BallController : MonoBehaviour
 	
 	public float initialSpeed;
 
-
 	private bool shouldBeReplaced = true;
 	private int speedLevel = 0;
 	private int paddleHits = 0;
@@ -18,8 +17,6 @@ public class BallController : MonoBehaviour
 	private float defaultZ;
 	private float[] speedLevels = { 10.0f, 12.0f, 14.0f, 16.0f, 18.0f };
 	private Rigidbody rigidBody;
-	private PaddleController paddle;
-	private LivesController lives;
 
 
 	public bool ShouldBeReplaced {
@@ -34,8 +31,6 @@ public class BallController : MonoBehaviour
 		defaultY = transform.position.y;
 		defaultZ = transform.position.z;
 		rigidBody = GetComponent<Rigidbody> ();
-		paddle = FindObjectOfType<PaddleController> ();
-		lives = FindObjectOfType<LivesController> ();
 	}
 
 
@@ -51,12 +46,10 @@ public class BallController : MonoBehaviour
 
 	private void LoseBall ()
 	{
-		lives.Decrease ();
+		GameManager.BallLost (transform.position);
 		speedLevel = 0;
 		paddleHits = 0;
-		SoundManager.Play (SoundManager.Sound.BallLost, transform.position);
 		ReplaceBall ();
-		paddle.MakeNormal ();
 	}
 
 
@@ -98,7 +91,8 @@ public class BallController : MonoBehaviour
 
 	private void FollowPaddle ()
 	{
-		transform.position = new Vector3 (paddle.X, defaultY, defaultZ);
+		float x = GameManager.GetPaddleX ();
+		transform.position = new Vector3 (x, defaultY, defaultZ);
 	}
 
 
@@ -129,7 +123,7 @@ public class BallController : MonoBehaviour
 		if (other.CompareTag ("Wall")) {
 			SoundManager.Play (SoundManager.Sound.BallBouncesFromWall, transform.position);
 			if (other.gameObject.name == "Top Wall") {
-				paddle.MakeSmaller ();
+				GameManager.BallHitTopWall ();
 			}
 		}
 
@@ -175,14 +169,14 @@ public class BallController : MonoBehaviour
 		float zSign = z >= 0f ? 1f : -1f;
 
 		if (xMag < VELOCITY_COMPONENT_LIMIT) {
-			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
+//			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 			float newX = 2 * VELOCITY_COMPONENT_LIMIT * xSign;
 			rigidBody.velocity = new Vector3 (newX, 0, z);
 			SetSpeed (speedLevel);
 		}
 
 		if (zMag < VELOCITY_COMPONENT_LIMIT) {
-			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
+//			Debug.Log ("xMag:" + xMag + " zMag: " + zMag + " LIM: " + VELOCITY_COMPONENT_LIMIT);
 			float newZ = 2 * VELOCITY_COMPONENT_LIMIT * zSign;
 			rigidBody.velocity = new Vector3 (x, 0, newZ);
 			SetSpeed (speedLevel);			

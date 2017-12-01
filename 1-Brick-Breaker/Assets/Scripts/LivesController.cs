@@ -4,20 +4,14 @@ using System.Collections;
 public class LivesController : MonoBehaviour
 {
 	public GameObject[] lifeCounters;
-	private GameOverController gameOver;
 
 	private int lives;
-	private PaddleController paddle;
 
 	
 	void Start ()
 	{
 		lives = lifeCounters.Length;
-		paddle = FindObjectOfType<PaddleController> ();
-		gameOver = FindObjectOfType<GameOverController> ();
 	}
-
-	
 
 
 	public void Decrease ()
@@ -27,13 +21,7 @@ public class LivesController : MonoBehaviour
 			LifeCounterController lifeCounter = lifeCounters [lives].GetComponent<LifeCounterController> ();
 			lifeCounter.Launch ();
 		} else {
-			Lose ();
+			GameManager.GameOver ();
 		}
-	}
-
-	private void Lose ()
-	{
-		gameOver.Lift ();
-		paddle.Explode ();
 	}
 }
