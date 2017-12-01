@@ -9,10 +9,6 @@ public class BallController : MonoBehaviour
 	
 	public float initialSpeed;
 
-	public AudioClip wallBounceSound;
-	public AudioClip paddleBounceSound;
-	public AudioClip brickBounceSound;
-	public AudioClip ballLostSound;
 
 	private bool shouldBeReplaced = true;
 	private int speedLevel = 0;
@@ -23,7 +19,6 @@ public class BallController : MonoBehaviour
 	private float[] speedLevels = { 10.0f, 12.0f, 14.0f, 16.0f, 18.0f };
 	private Rigidbody rigidBody;
 	private PaddleController paddle;
-	private AudioClip collisionClip;
 	private LivesController lives;
 
 
@@ -59,7 +54,7 @@ public class BallController : MonoBehaviour
 		lives.Decrease ();
 		speedLevel = 0;
 		paddleHits = 0;
-		AudioSource.PlayClipAtPoint (ballLostSound, transform.position);
+		SoundManager.Play (SoundManager.Sound.BallLost, transform.position);
 		ReplaceBall ();
 		paddle.MakeNormal ();
 	}
@@ -116,14 +111,12 @@ public class BallController : MonoBehaviour
 
 	void OnCollisionEnter (Collision collision)
 	{
-		collisionClip = null;
-
 		Collider other = collision.collider;
 		if (other.CompareTag ("Ground"))
 			return;
 
 		if (other.CompareTag ("Paddle")) {
-			collisionClip = paddleBounceSound;
+			SoundManager.Play (SoundManager.Sound.BallBouncesFromPaddle, transform.position);
 			paddleHits += 1;
 			if (speedLevel < 1 && paddleHits >= 4) {
 				speedLevel = 1;
@@ -134,14 +127,14 @@ public class BallController : MonoBehaviour
 		}
 
 		if (other.CompareTag ("Wall")) {
-			collisionClip = wallBounceSound;
+			SoundManager.Play (SoundManager.Sound.BallBouncesFromWall, transform.position);
 			if (other.gameObject.name == "Top Wall") {
 				paddle.MakeSmaller ();
 			}
 		}
 
 		if (other.CompareTag ("Brick")) {
-			collisionClip = brickBounceSound;
+			SoundManager.Play (SoundManager.Sound.BallBouncesFromBrick, transform.position);
 			if (speedLevel < 3 && other.name == "Orange Brick") {
 				speedLevel = 3;
 			}
@@ -158,9 +151,6 @@ public class BallController : MonoBehaviour
 		/* Sometimes one of the velocity's components approaches zero, which often 
 		 * makes the ball "stuck" on an axis. This method checks that this never happens. */
 		MaintainDirection ();
-
-		if (collisionClip)
-			AudioSource.PlayClipAtPoint (collisionClip, transform.position);
 	}
 
 

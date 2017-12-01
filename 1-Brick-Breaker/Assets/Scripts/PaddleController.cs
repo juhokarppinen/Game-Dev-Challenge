@@ -7,8 +7,7 @@ public class PaddleController : MonoBehaviour
 	public float mouseSpeedScale;
 	public bool autoPlay;
 	public GameObject explosion;
-	public AudioClip explosionSound;
-	public AudioClip smallerSound;
+
 
 	private const float playAreaWidth = 14f;
 	private new Renderer renderer;
@@ -91,7 +90,7 @@ public class PaddleController : MonoBehaviour
 		ball.ShouldBeReplaced = false;
 		GameObject newExplosion = (GameObject)Instantiate (explosion, transform.position, Quaternion.identity);
 		newExplosion.transform.SetParent (particleSystemParent.transform);
-		AudioSource.PlayClipAtPoint (explosionSound, transform.position);
+		SoundManager.Play (SoundManager.Sound.Explosion, transform.position);
 		gameObject.SetActive (false);
 	}
 
@@ -101,7 +100,7 @@ public class PaddleController : MonoBehaviour
 		if (IsSmall)
 			return;
 		gameObject.transform.localScale = new Vector3 (0.5f, 1f, 1f);
-		AudioSource.PlayClipAtPoint (smallerSound, transform.position);
+		SoundManager.Play (SoundManager.Sound.PaddleSmaller, transform.position);
 	}
 
 

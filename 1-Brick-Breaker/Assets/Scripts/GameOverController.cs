@@ -5,7 +5,6 @@ using System.Collections;
 
 public class GameOverController : MonoBehaviour
 {
-	public AudioClip loseSound;
 	private float ySpeed = 0f;
 	private float maxY = 20.0f;
 	private bool gameIsOver = false;
@@ -31,7 +30,7 @@ public class GameOverController : MonoBehaviour
 	public void Lift ()
 	{
 		gameIsOver = true;
-		AudioSource.PlayClipAtPoint (loseSound, transform.position);
+		SoundManager.Play (SoundManager.Sound.Lose, Vector3.zero);
 		ySpeed = 5f;
 	}
 }

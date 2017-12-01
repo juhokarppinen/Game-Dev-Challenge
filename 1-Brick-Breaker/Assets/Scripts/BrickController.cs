@@ -7,7 +7,6 @@ public class BrickController : MonoBehaviour
 
 	public int scoreValue;
 	public GameObject explosion;
-	public AudioClip explosionSound;
 
 	private GameObject particleSystemParent;
 	private ScoreController score;
@@ -28,7 +27,7 @@ public class BrickController : MonoBehaviour
 	{
 		GameObject newExplosion = (GameObject)Instantiate (explosion, transform.position, Quaternion.identity);
 		newExplosion.transform.SetParent (particleSystemParent.transform);
-		AudioSource.PlayClipAtPoint (explosionSound, transform.position);
+		SoundManager.Play (SoundManager.Sound.Explosion, transform.position);
 		score.AddPoints (scoreValue);
 
 		count--;

@@ -4,7 +4,6 @@ using System.Collections;
 public class LifeCounterController : MonoBehaviour
 {
 	public GameObject explosion;
-	public AudioClip explosionSound;
 
 	private float defaultY;
 	private Rigidbody rigidBody;
@@ -31,7 +30,6 @@ public class LifeCounterController : MonoBehaviour
 
 	public void Launch ()
 	{
-		//rigidBody.AddForce (Random.Range (-250, -150), Random.Range (250, 750), Random.Range (-250, -150));
 		rigidBody.useGravity = true;
 	}
 
