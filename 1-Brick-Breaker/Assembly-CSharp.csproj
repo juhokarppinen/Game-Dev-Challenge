@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/Managed/UnityEngine.dll</HintPath>
+      <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/Managed/UnityEditor.dll</HintPath>
+      <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\BrickController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\ExplosionController.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameOverController.cs" />
      <Compile Include="Assets\Scripts\HelpPanelController.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
@@ -57,15 +58,16 @@
      <Compile Include="Assets\Scripts\PaddleController.cs" />
      <Compile Include="Assets\Scripts\RestartController.cs" />
      <Compile Include="Assets\Scripts\ScoreController.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\YouWinController.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity 5.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
