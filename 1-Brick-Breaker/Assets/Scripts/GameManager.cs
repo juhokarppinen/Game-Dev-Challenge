@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
 	public static void BallLost (Vector3 position)
 	{
-		SoundManager.Play (SoundManager.Sound.BallLost, position);
 		lives.Decrease ();
 		paddle.MakeNormal ();
 	}

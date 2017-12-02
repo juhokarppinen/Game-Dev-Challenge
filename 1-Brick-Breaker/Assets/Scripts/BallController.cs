@@ -8,6 +8,10 @@ public class BallController : MonoBehaviour
 	private const float VELOCITY_COMPONENT_LIMIT = 3.0f;
 	
 	public float initialSpeed;
+	public AudioClip ballBouncesFromBrick;
+	public AudioClip ballBouncesFromPaddle;
+	public AudioClip ballBouncesFromWall;
+	public AudioClip ballLost;
 
 	private bool shouldBeReplaced = true;
 	private int speedLevel = 0;
@@ -47,6 +51,7 @@ public class BallController : MonoBehaviour
 	private void LoseBall ()
 	{
 		GameManager.BallLost (transform.position);
+		AudioSource.PlayClipAtPoint (ballLost, transform.position);
 		speedLevel = 0;
 		paddleHits = 0;
 		ReplaceBall ();
@@ -110,7 +115,7 @@ public class BallController : MonoBehaviour
 			return;
 
 		if (other.CompareTag ("Paddle")) {
-			SoundManager.Play (SoundManager.Sound.BallBouncesFromPaddle, transform.position);
+			AudioSource.PlayClipAtPoint (ballBouncesFromPaddle, transform.position);
 			paddleHits += 1;
 			if (speedLevel < 1 && paddleHits >= 4) {
 				speedLevel = 1;
@@ -121,14 +126,14 @@ public class BallController : MonoBehaviour
 		}
 
 		if (other.CompareTag ("Wall")) {
-			SoundManager.Play (SoundManager.Sound.BallBouncesFromWall, transform.position);
+			AudioSource.PlayClipAtPoint (ballBouncesFromWall, transform.position);
 			if (other.gameObject.name == "Top Wall") {
 				GameManager.BallHitTopWall ();
 			}
 		}
 
 		if (other.CompareTag ("Brick")) {
-			SoundManager.Play (SoundManager.Sound.BallBouncesFromBrick, transform.position);
+			AudioSource.PlayClipAtPoint (ballBouncesFromBrick, transform.position);
 			if (speedLevel < 3 && other.name == "Orange Brick") {
 				speedLevel = 3;
 			}

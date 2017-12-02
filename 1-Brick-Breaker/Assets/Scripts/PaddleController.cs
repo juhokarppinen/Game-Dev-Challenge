@@ -6,6 +6,7 @@ public class PaddleController : MonoBehaviour
 	public float keyboardSpeedScale;
 	public float mouseSpeedScale;
 	public bool autoPlay;
+	public AudioClip paddleSmaller;
 
 
 	private const float playAreaWidth = 14f;
@@ -87,8 +88,9 @@ public class PaddleController : MonoBehaviour
 	{
 		if (IsSmall)
 			return;
+		
 		gameObject.transform.localScale = new Vector3 (0.5f, 1f, 1f);
-		SoundManager.Play (SoundManager.Sound.PaddleSmaller, transform.position);
+		AudioSource.PlayClipAtPoint (paddleSmaller, transform.position);
 	}
 
 
