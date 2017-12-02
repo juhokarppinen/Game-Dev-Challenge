@@ -88,6 +88,7 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
 -define:UNITY_TEAM_LICENSE
+'Assets/ParticleEffectContainer.cs'
 'Assets/Scripts/BallController.cs'
 'Assets/Scripts/BrickController.cs'
 'Assets/Scripts/CameraController.cs'

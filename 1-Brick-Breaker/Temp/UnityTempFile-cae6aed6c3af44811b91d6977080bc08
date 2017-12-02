@@ -99,6 +99,7 @@
 'Assets/Scripts/LifeCounterController.cs'
 'Assets/Scripts/LivesController.cs'
 'Assets/Scripts/PaddleController.cs'
+'Assets/Scripts/ParticleEffectContainer.cs'
 'Assets/Scripts/RestartController.cs'
 'Assets/Scripts/ScoreController.cs'
 'Assets/Scripts/SoundManager.cs'

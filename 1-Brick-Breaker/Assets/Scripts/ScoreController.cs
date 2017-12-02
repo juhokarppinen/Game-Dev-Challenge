@@ -13,11 +13,13 @@ public class ScoreController : MonoBehaviour
 		UpdateText ();
 	}
 
+
 	public void AddPoints (int points)
 	{
 		score += points;
 		UpdateText ();
 	}
+
 
 	private void UpdateText ()
 	{

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Centralised sound manager.
+/// Centralised sound manager for sound effects not associated with particular game object behaviors.
 /// </summary>
 public class SoundManager : MonoBehaviour
 {

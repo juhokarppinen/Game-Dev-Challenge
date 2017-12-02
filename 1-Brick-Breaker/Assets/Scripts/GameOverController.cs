@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -13,7 +12,7 @@ public class GameOverController : MonoBehaviour
 	void Update ()
 	{
 		if (gameIsOver && Input.GetButtonDown ("Launch"))
-			SceneManager.LoadScene ("Game_Level_01");
+			LevelManager.Load (LevelManager.Level.L_01);
 
 		float x = transform.position.x;
 		float y = transform.position.y;

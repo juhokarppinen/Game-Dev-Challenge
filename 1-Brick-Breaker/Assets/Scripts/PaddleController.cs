@@ -6,12 +6,10 @@ public class PaddleController : MonoBehaviour
 	public float keyboardSpeedScale;
 	public float mouseSpeedScale;
 	public bool autoPlay;
-	public GameObject explosion;
 
 
 	private const float playAreaWidth = 14f;
 	private new Renderer renderer;
-	private GameObject particleSystemParent;
 
 	public bool IsSmall {
 		get { return gameObject.transform.localScale.x == 0.5f; }
@@ -46,11 +44,6 @@ public class PaddleController : MonoBehaviour
 
 	void Start ()
 	{
-		particleSystemParent = GameObject.Find ("Particle Effects");
-		if (!particleSystemParent) {
-			particleSystemParent = new GameObject ("Particle Effects");
-		}
-
 		renderer = GetComponentInChildren<Renderer> ();
 	}
 
@@ -85,9 +78,7 @@ public class PaddleController : MonoBehaviour
 
 	public void Explode ()
 	{
-		GameObject newExplosion = (GameObject)Instantiate (explosion, transform.position, Quaternion.identity);
-		newExplosion.transform.SetParent (particleSystemParent.transform);
-		SoundManager.Play (SoundManager.Sound.Explosion, transform.position);
+		GetComponent<Explodable> ().Explode (transform.position);
 		gameObject.SetActive (false);
 	}
 
