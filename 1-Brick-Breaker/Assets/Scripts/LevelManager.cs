@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
 	public static Dictionary<Level,string> levels;
 
+
 	void Start ()
 	{
 		levels = new Dictionary<Level,string> {
@@ -19,15 +20,18 @@ public class LevelManager : MonoBehaviour
 		};
 	}
 
+
 	void Update ()
 	{
 	
 	}
 
+
 	public static void Load (Level level)
 	{
 		SceneManager.LoadScene (levels [level]);	
 	}
+
 
 	public static void Next ()
 	{

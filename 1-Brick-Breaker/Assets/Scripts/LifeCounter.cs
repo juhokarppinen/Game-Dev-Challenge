@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LifeCounterController : MonoBehaviour
+public class LifeCounter : MonoBehaviour
 {
 	private float defaultY;
 	private Rigidbody rigidBody;

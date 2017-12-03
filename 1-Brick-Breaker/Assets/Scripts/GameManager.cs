@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
 	public static void BallLost (Vector3 position)
 	{
-		lives.Decrement ();
+		lives.Remove (1);
 		paddle.MakeNormal ();
 	}
 

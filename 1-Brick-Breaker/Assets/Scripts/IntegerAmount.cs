@@ -5,13 +5,14 @@ public class IntegerAmount : MonoBehaviour
 {
 	protected int amount;
 
+
 	public int Get ()
 	{
 		return amount;
 	}
 
 
-	public void Set (int amount)
+	public virtual void Set (int amount)
 	{
 		this.amount = amount;
 	}
@@ -23,20 +24,8 @@ public class IntegerAmount : MonoBehaviour
 	}
 
 
-	public void Remove (int amount)
+	public virtual void Remove (int amount)
 	{
 		this.amount -= amount;
-	}
-
-
-	public void Increment ()
-	{
-		Add (1);
-	}
-
-
-	public void Decrement ()
-	{
-		Remove (1);
 	}
 }

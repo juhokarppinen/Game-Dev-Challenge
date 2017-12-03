@@ -18,7 +18,7 @@ public class LivesController : MonoBehaviour
 	{
 		lives -= 1;
 		if (lives >= 0) {
-			LifeCounterController lifeCounter = lifeCounters [lives].GetComponent<LifeCounterController> ();
+			LifeCounter lifeCounter = lifeCounters [lives].GetComponent<LifeCounter> ();
 			lifeCounter.Launch ();
 		} else {
 			GameManager.GameOver ();
