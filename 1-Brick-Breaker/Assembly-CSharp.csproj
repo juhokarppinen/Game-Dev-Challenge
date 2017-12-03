@@ -53,13 +53,15 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameOverController.cs" />
      <Compile Include="Assets\Scripts\HelpPanelController.cs" />
+     <Compile Include="Assets\Scripts\IntegerAmount.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\LifeCounterController.cs" />
+     <Compile Include="Assets\Scripts\Lives.cs" />
      <Compile Include="Assets\Scripts\LivesController.cs" />
      <Compile Include="Assets\Scripts\PaddleController.cs" />
      <Compile Include="Assets\Scripts\ParticleEffectContainer.cs" />
      <Compile Include="Assets\Scripts\RestartController.cs" />
-     <Compile Include="Assets\Scripts\ScoreController.cs" />
+     <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\YouWinController.cs" />
  <Reference Include="UnityEngine.UI">

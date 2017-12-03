@@ -3,31 +3,32 @@ using System.Collections;
 
 /// <summary>
 /// A facade / messenger class for general bookkeeping and managing various object interactions.
+/// All public methods are static so that they can be called without an explicit object reference.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
 	private static BallController ball;
 	private static PaddleController paddle;
-	private static LivesController lives;
-	private static ScoreController score;
 	private static GameOverController gameOver;
 	private static YouWinController win;
+	private static Lives lives;
+	private static Score score;
 
 
 	void Start ()
 	{
 		ball = FindObjectOfType<BallController> ();
 		paddle = FindObjectOfType<PaddleController> ();
-		lives = FindObjectOfType<LivesController> ();
-		score = FindObjectOfType<ScoreController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
 		win = FindObjectOfType<YouWinController> ();
+		lives = GetComponent<Lives> ();
+		score = GetComponent<Score> ();
 	}
 
 
 	public static void BallLost (Vector3 position)
 	{
-		lives.Decrease ();
+		lives.Decrement ();
 		paddle.MakeNormal ();
 	}
 
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
 
 	public static void AddToScore (int scoreValue)
 	{
-		score.AddPoints (scoreValue);
+		score.Add (scoreValue);
 	}
 
 
