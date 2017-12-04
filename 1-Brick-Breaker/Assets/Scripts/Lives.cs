@@ -4,11 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Takes care of tracking lives and updating the UI element which displays them.
+/// Takes care of tracking lives and updating the UI element which displays them. Currently the
+/// amount of lives is hardcoded to 3.
 /// </summary>
 public class Lives : IntegerAmount
 {
-	public int lives;
+	private int lives = 3;
 	private LivesText livesText;
 
 	void Start ()
