@@ -4,12 +4,18 @@ using System.Collections;
 
 public class Score : IntegerAmount
 {
-	public Text scoreText;
+	private ScoreText score;
+
+	void Start ()
+	{
+		score = FindObjectOfType<ScoreText> ();
+	}
+
 
 	public override void Add (int amount)
 	{
 		base.Add (amount);
-		scoreText.text = "SCORE: " + this.amount;
+		score.UpdateText (this.amount);
 	}
 
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	private static YouWinController win;
 	private static Lives lives;
 	private static Score score;
+	private static ExtraLifeCounter extraLifeCounter;
 
 
 	void Start ()
@@ -23,13 +24,18 @@ public class GameManager : MonoBehaviour
 		win = FindObjectOfType<YouWinController> ();
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
+		extraLifeCounter = GetComponent<ExtraLifeCounter> ();
 	}
 
 
 	public static void BallLost (Vector3 position)
 	{
-		lives.Remove (1);
-		paddle.MakeNormal ();
+		if (lives.Get () > 0) {
+			lives.Remove (1);
+			paddle.MakeNormal ();
+		} else {
+			GameOver ();
+		}
 	}
 
 
@@ -54,6 +60,9 @@ public class GameManager : MonoBehaviour
 	public static void AddToScore (int scoreValue)
 	{
 		score.Add (scoreValue);
+		if (extraLifeCounter.UpdateCounter (scoreValue)) {
+			lives.Add (1);
+		}
 	}
 
 

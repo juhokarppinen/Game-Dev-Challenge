@@ -50,7 +50,6 @@ public class BallController : MonoBehaviour
 
 	private void LoseBall ()
 	{
-		Debug.Log ("ball lost");
 		GameManager.BallLost (transform.position);
 		AudioSource.PlayClipAtPoint (ballLost, transform.position);
 		speedLevel = 0;
