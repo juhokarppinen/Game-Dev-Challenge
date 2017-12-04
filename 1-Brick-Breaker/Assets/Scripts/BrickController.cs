@@ -49,14 +49,25 @@ public class BrickController : MonoBehaviour
 
 
 	/// <summary>
-	/// Sets the the brick's color as health / maxHealth.
+	/// Darken the brick's color logarithmically.
 	/// </summary>
 	private void SetColor ()
 	{
-		float s = (1.0f * health) / (1.0f * maxHealth);
+		float p = 0.5f;
+		float s = Mathf.Pow ((1.0f * health) / (1.0f * maxHealth), p);
 		float r = m.color.r * s;
 		float g = m.color.g * s;
 		float b = m.color.b * s;
 		m.color = new Color (r, g, b, 1);
+	}
+
+
+	/// <summary>
+	/// Deal damage to all bricks.
+	/// </summary>
+	void Update ()
+	{
+		if (Input.GetKeyDown (KeyCode.T))
+			OnCollisionEnter (null);
 	}
 }
