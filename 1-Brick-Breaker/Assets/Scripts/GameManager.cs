@@ -7,6 +7,7 @@ using System.Collections;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+	private static LevelManager level;
 	private static StateManager state;
 	private static PaddleController paddle;
 	private static GameOverController gameOver;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
 	void Awake ()
 	{
+		level = FindObjectOfType<LevelManager> ();
 		state = FindObjectOfType<StateManager> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
@@ -86,13 +88,17 @@ public class GameManager : MonoBehaviour
 	public static void Win ()
 	{
 		SetState ();
-		LevelManager.NextLevel ();
+		level.NextLevel ();
 
 		// Not executed.
 		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
 		win.Lift ();
 	}
 
+	public static void Load (LevelManager.Level lvl)
+	{
+		level.Load (lvl);
+	}
 
 	public static void GameOver ()
 	{

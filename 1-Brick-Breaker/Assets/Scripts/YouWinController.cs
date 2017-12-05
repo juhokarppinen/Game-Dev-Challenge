@@ -19,7 +19,7 @@ public class YouWinController : MonoBehaviour
 	void Update ()
 	{
 		if (gameIsWon && input.LaunchButtonDown)
-			LevelManager.Load (LevelManager.Level.GAMEWIN);
+			GameManager.Load (LevelManager.Level.GAMEWIN);
 
 		float x = transform.position.x;
 		float y = transform.position.y;

@@ -27,11 +27,11 @@ public class LevelManager : MonoBehaviour
 	void Start ()
 	{
 		levels = new Dictionary<Level,string> {
-			{ Level.MENU, "Game_Level_00" },
+			{ Level.MENU, "Main_Menu" },
 			{ Level.L_00, "Game_Level_00" },
 			{ Level.L_01, "Game_Level_00" },
-			{ Level.GAMEOVER, "Game_Level_00" },
-			{ Level.GAMEWIN, "Game_Level_00" }
+			{ Level.GAMEOVER, "Main_Menu" },
+			{ Level.GAMEWIN, "Main_Menu" }
 		};
 	}
 
@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
 	/// Load the specified level using the Level enum.
 	/// </summary>
 	/// <param name="level">Enumerated level.</param>
-	public static void Load (Level level)
+	public void Load (Level level)
 	{
 		SceneManager.LoadScene (levels [level]);	
 	}
@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 	/// <summary>
 	/// Load next level.
 	/// </summary>
-	public static void NextLevel ()
+	public void NextLevel ()
 	{
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 	}
