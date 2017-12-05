@@ -74,9 +74,6 @@ public class BallController : MonoBehaviour
 
 		if (other.CompareTag ("Wall")) {
 			AudioSource.PlayClipAtPoint (ballBouncesFromWall, transform.position);
-			if (other.gameObject.name == "Top Wall") {
-				GameManager.BallHitTopWall ();
-			}
 		}
 
 		if (other.CompareTag ("Brick")) {
