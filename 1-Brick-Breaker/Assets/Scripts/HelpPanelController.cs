@@ -3,9 +3,17 @@ using System.Collections;
 
 public class HelpPanelController : MonoBehaviour
 {
+	private InputManager input;
+
+	void Awake ()
+	{
+		input = GetComponent<InputManager> ();
+	}
+
+
 	void Update ()
 	{
-		if (Input.GetButtonDown ("Launch"))
+		if (input.LaunchButtonDown)
 			GetComponent<Animator> ().SetTrigger ("Space");
 	}
 }

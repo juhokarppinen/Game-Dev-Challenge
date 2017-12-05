@@ -20,10 +20,15 @@ public class BallController : MonoBehaviour
 	private Rigidbody rigidBody;
 
 
+	void Awake ()
+	{
+		rigidBody = GetComponent<Rigidbody> ();
+	}
+
+
 	void Start ()
 	{
 		balls += 1;
-		rigidBody = GetComponent<Rigidbody> ();
 	}
 
 

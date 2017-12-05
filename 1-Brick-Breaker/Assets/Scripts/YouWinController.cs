@@ -7,12 +7,19 @@ public class YouWinController : MonoBehaviour
 	private float ySpeed = 0f;
 	private float maxY = 21.0f;
 	private bool gameIsWon = false;
+	private InputManager input;
+
+
+	void Awake ()
+	{
+		input = GetComponent<InputManager> ();
+	}
 
 
 	void Update ()
 	{
-		if (gameIsWon && Input.GetButtonDown ("Launch"))
-			LevelManager.Load (LevelManager.Level.L_01);
+		if (gameIsWon && input.LaunchButtonDown)
+			LevelManager.Load (LevelManager.Level.GAMEWIN);
 
 		float x = transform.position.x;
 		float y = transform.position.y;

@@ -7,12 +7,18 @@ public class GameOverController : MonoBehaviour
 	private float ySpeed = 0f;
 	private float maxY = 20.0f;
 	private bool gameIsOver = false;
+	private InputManager input;
 
+
+	void Awake ()
+	{
+		input = GetComponent<InputManager> ();
+	}
 
 	void Update ()
 	{
-		if (gameIsOver && Input.GetButtonDown ("Launch"))
-			LevelManager.Load (LevelManager.Level.L_01);
+		if (gameIsOver && input.LaunchButtonDown)
+			LevelManager.Load (LevelManager.Level.GAMEOVER);
 
 		float x = transform.position.x;
 		float y = transform.position.y;

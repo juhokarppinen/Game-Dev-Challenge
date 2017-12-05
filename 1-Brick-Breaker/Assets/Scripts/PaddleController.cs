@@ -9,11 +9,10 @@ public class PaddleController : MonoBehaviour
 	public GameObject ball;
 	public AudioClip paddleSmaller;
 
-	private const string LAUNCH_BUTTON = "Launch";
 	private const float playAreaWidth = 14f;
 
-	private new Renderer renderer;
-
+	private Renderer paddleRenderer;
+	private InputManager input;
 
 	public bool IsSmall {
 		get { return gameObject.transform.localScale.x == 0.5f; }
@@ -32,7 +31,7 @@ public class PaddleController : MonoBehaviour
 	}
 
 	private float HalfSize {
-		get { return renderer.bounds.extents.x; }
+		get { return paddleRenderer.bounds.extents.x; }
 	}
 
 	private float Left {
@@ -46,23 +45,24 @@ public class PaddleController : MonoBehaviour
 	}
 
 
-	void Start ()
+	void Awake ()
 	{
-		renderer = GetComponentInChildren<Renderer> ();
+		input = GetComponent<InputManager> ();
+		paddleRenderer = GetComponentInChildren<Renderer> ();
 	}
 
 
 	void Update ()
 	{
-		if (Input.GetButtonDown (LAUNCH_BUTTON))
+		if (input.LaunchButtonDown)
 			LaunchBall ();
 	}
 
 
 	void FixedUpdate ()
 	{
-		float mouseMovement = Input.GetAxisRaw ("Mouse X");
-		float keyboardMovement = Input.GetAxisRaw ("Horizontal");
+		float mouseMovement = input.MouseAxisX;
+		float keyboardMovement = input.ControllerAxisX;
 		float x = X + (keyboardMovement * keyboardSpeedScale + mouseMovement * mouseSpeedScale) * Time.deltaTime;
 
 		transform.position = new Vector3 (x, Y, Z);
