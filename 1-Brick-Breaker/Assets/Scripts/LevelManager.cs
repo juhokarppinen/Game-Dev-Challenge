@@ -44,5 +44,6 @@ public class LevelManager : MonoBehaviour
 	public static void NextLevel ()
 	{
 		// TODO: Load Next Level
+		Load (Level.L_01);
 	}
 }

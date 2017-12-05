@@ -6,7 +6,7 @@ public class Score : IntegerAmount
 {
 	private ScoreText score;
 
-	void Start ()
+	void Awake ()
 	{
 		score = FindObjectOfType<ScoreText> ();
 	}
@@ -18,4 +18,10 @@ public class Score : IntegerAmount
 		score.UpdateText (this.amount);
 	}
 
+
+	public override void Set (int amount)
+	{
+		base.Set (amount);
+		score.UpdateText (this.amount);
+	}
 }

@@ -5,19 +5,26 @@ public class ExtraLifeCounter : MonoBehaviour
 {
 	public int oneUpEvery;
 
-	private int counter;
+	private int count;
 
-	void Start ()
+
+	public void Set (int val)
 	{
-		counter = oneUpEvery;
+		count = val;
+	}
+
+
+	public int Get ()
+	{
+		return count;
 	}
 
 
 	public bool UpdateCounter (int amount)
 	{
-		counter -= amount;
-		if (counter <= 0) {
-			counter += oneUpEvery;
+		count += amount;
+		if (count >= oneUpEvery) {
+			count -= oneUpEvery;
 			return true;
 		} else {
 			return false;

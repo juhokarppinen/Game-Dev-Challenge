@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\YouWinController.cs" />
+     <Compile Include="Assets\StateManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Samsung_T1/Applications/Unity 5.4.0f3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

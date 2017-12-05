@@ -4,18 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Takes care of tracking lives and updating the UI element which displays them. Currently the
-/// amount of lives is hardcoded to 3.
+/// Takes care of tracking lives and updating the UI element which displays them.
 /// </summary>
 public class Lives : IntegerAmount
 {
-	private int lives = 3;
 	private LivesText livesText;
+
+	void Awake ()
+	{
+		livesText = FindObjectOfType<LivesText> ();
+	}
+
 
 	void Start ()
 	{
-		amount = lives;
-		livesText = FindObjectOfType<LivesText> ();
+		livesText.UpdateText (this.amount);
 	}
 
 
@@ -37,6 +40,17 @@ public class Lives : IntegerAmount
 	public override void Add (int amount)
 	{
 		base.Add (amount);
+		livesText.UpdateText (this.amount);
+	}
+
+
+	/// <summary>
+	/// Set lives to the specified amount and update the associated UI element.
+	/// </summary>
+	/// <param name="amount">Amount.</param>
+	public override void Set (int amount)
+	{
+		base.Set (amount);
 		livesText.UpdateText (this.amount);
 	}
 }

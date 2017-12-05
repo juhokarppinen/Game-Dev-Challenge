@@ -7,6 +7,7 @@ using System.Collections;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+	private static StateManager state;
 	private static BallController ball;
 	private static PaddleController paddle;
 	private static GameOverController gameOver;
@@ -16,8 +17,9 @@ public class GameManager : MonoBehaviour
 	private static ExtraLifeCounter extraLifeCounter;
 
 
-	void Start ()
+	void Awake ()
 	{
+		state = FindObjectOfType<StateManager> ();
 		ball = FindObjectOfType<BallController> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
@@ -25,6 +27,14 @@ public class GameManager : MonoBehaviour
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
 		extraLifeCounter = GetComponent<ExtraLifeCounter> ();
+	}
+
+
+	void Start ()
+	{
+		score.Set (state.Score);
+		lives.Set (state.Lives);
+		extraLifeCounter.Set (state.OneUpCount);
 	}
 
 
@@ -66,8 +76,33 @@ public class GameManager : MonoBehaviour
 	}
 
 
+	public static void SetScoreTo (int scoreValue)
+	{
+		score.Set (scoreValue);
+	}
+
+
+	public static void SetLivesTo (int livesValue)
+	{
+		lives.Set (livesValue);
+	}
+
+
+	public static void SetOneUpCountTo (int countValue)
+	{
+		extraLifeCounter.Set (countValue);
+	}
+
+
 	public static void Win ()
 	{
+		state.Score = score.Get ();
+		state.Lives = lives.Get ();
+		state.OneUpCount = extraLifeCounter.Get ();
+
+		LevelManager.NextLevel ();
+
+		// Not executed.
 		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
 		ball.Explode ();
 		win.Lift ();

@@ -40,9 +40,11 @@ public class BrickController : MonoBehaviour
 	private void DestroyBrick ()
 	{
 		GameManager.AddToScore (scoreValue);
+
 		count--;
 		if (count <= 0)
 			GameManager.Win ();
+		
 		GetComponent<Explodable> ().Explode (transform.position);
 		Destroy (gameObject);
 	}

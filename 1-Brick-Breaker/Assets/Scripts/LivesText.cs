@@ -15,25 +15,29 @@ public class LivesText : MonoBehaviour
 	private int lives;
 
 
-	void Start ()
+	void Awake ()
 	{
 		lives = transform.childCount;
 		containers = new GameObject[lives];
 		counters = new Stack<GameObject> ();
-
-		for (int i = 0; i < lives; i++) {
+		for (int i = 0; i < lives; i++)
 			containers [i] = transform.GetChild (i).gameObject;
-			CreateNewCounter ();
-		}
+	}
+
+
+	void Start ()
+	{
 	}
 
 
 	public void UpdateText (int lives)
 	{
-		if (lives < counters.Count) {
+		if (lives == counters.Count) {
+			return;
+		} else if (lives < counters.Count) {
 			Remove ();
 		} else {
-			Add ();
+			Add (lives);
 		}
 	}
 
@@ -47,11 +51,10 @@ public class LivesText : MonoBehaviour
 	}
 
 
-	private void Add ()
+	private void Add (int lives)
 	{
-		if (counters.Count >= lives) {
-			return;
-		} else {
+		lives = lives > 3 ? 3 : lives;
+		while (counters.Count < lives) {
 			CreateNewCounter ();
 		}
 	}
@@ -61,6 +64,7 @@ public class LivesText : MonoBehaviour
 	{
 		GameObject newCounter = (GameObject)Instantiate (lifeCounter);
 		counters.Push (newCounter);
+
 		int index = counters.Count - 1;
 		newCounter.transform.position = containers [index].transform.position;
 		newCounter.transform.parent = containers [index].transform;
