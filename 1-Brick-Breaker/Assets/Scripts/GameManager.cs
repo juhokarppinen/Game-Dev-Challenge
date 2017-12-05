@@ -8,7 +8,6 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 	private static StateManager state;
-	private static BallController ball;
 	private static PaddleController paddle;
 	private static GameOverController gameOver;
 	private static YouWinController win;
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
 	void Awake ()
 	{
 		state = FindObjectOfType<StateManager> ();
-		ball = FindObjectOfType<BallController> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
 		win = FindObjectOfType<YouWinController> ();
@@ -32,19 +30,16 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
-		score.Set (state.Score);
-		lives.Set (state.Lives);
-		extraLifeCounter.Set (state.OneUpCount);
+		GetState ();
 	}
 
 
-	public static void BallLost (Vector3 position)
+	public static void BallLost (bool noBallsInPlay)
 	{
-		if (lives.Get () > 0) {
-			lives.Remove (1);
-			paddle.MakeNormal ();
-		} else {
+		if (noBallsInPlay && lives.Get () <= 0) {
 			GameOver ();
+		} else {
+			paddle.MakeNormal ();
 		}
 	}
 
@@ -52,18 +47,6 @@ public class GameManager : MonoBehaviour
 	public static void BallHitTopWall ()
 	{
 		paddle.MakeSmaller ();
-	}
-
-
-	public static float GetPaddleX ()
-	{
-		return paddle.X;
-	}
-
-
-	public static float GetBallX ()
-	{
-		return ball.transform.position.x;
 	}
 
 
@@ -76,15 +59,27 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void SetScoreTo (int scoreValue)
+	public static void SetScore (int scoreValue)
 	{
 		score.Set (scoreValue);
 	}
 
 
-	public static void SetLivesTo (int livesValue)
+	public static bool HasLives ()
+	{
+		return (lives.Get () > 0);
+	}
+
+
+	public static void SetLives (int livesValue)
 	{
 		lives.Set (livesValue);
+	}
+
+
+	public static void DecrementLives ()
+	{
+		lives.Remove (1);
 	}
 
 
@@ -96,23 +91,34 @@ public class GameManager : MonoBehaviour
 
 	public static void Win ()
 	{
-		state.Score = score.Get ();
-		state.Lives = lives.Get ();
-		state.OneUpCount = extraLifeCounter.Get ();
-
+		SetState ();
 		LevelManager.NextLevel ();
 
 		// Not executed.
 		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
-		ball.Explode ();
 		win.Lift ();
 	}
 
 
 	public static void GameOver ()
 	{
-		ball.ShouldBeReplaced = false;
 		gameOver.Lift ();
 		paddle.Explode ();
+	}
+
+
+	private static void SetState ()
+	{
+		state.Score = score.Get ();
+		state.Lives = lives.Get ();
+		state.OneUpCount = extraLifeCounter.Get ();
+	}
+
+
+	private static void GetState ()
+	{
+		score.Set (state.Score);
+		lives.Set (state.Lives);
+		extraLifeCounter.Set (state.OneUpCount);
 	}
 }

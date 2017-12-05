@@ -43,7 +43,6 @@ public class LevelManager : MonoBehaviour
 	/// </summary>
 	public static void NextLevel ()
 	{
-		// TODO: Load Next Level
-		Load (Level.L_01);
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 	}
 }

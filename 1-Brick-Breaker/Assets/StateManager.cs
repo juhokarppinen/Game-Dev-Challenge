@@ -35,8 +35,8 @@ public class StateManager : MonoBehaviour
 		if (instance == null) {
 			instance = this;
 		} else if (instance != this) {
-			GameManager.SetScoreTo (Score);
-			GameManager.SetLivesTo (Lives);
+			GameManager.SetScore (Score);
+			GameManager.SetLives (Lives);
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);
