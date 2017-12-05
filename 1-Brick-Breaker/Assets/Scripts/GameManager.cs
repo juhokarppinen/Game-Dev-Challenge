@@ -44,12 +44,6 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void BallHitTopWall ()
-	{
-		paddle.MakeSmaller ();
-	}
-
-
 	public static void AddToScore (int scoreValue)
 	{
 		score.Add (scoreValue);
