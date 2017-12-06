@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
 /// <summary>
 /// Takes care of tracking lives and updating the UI element which displays them.
