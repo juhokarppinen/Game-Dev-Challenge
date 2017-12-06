@@ -1,38 +1,40 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
-/// A facade / messenger class for general bookkeeping and managing various object interactions.
+/// A global facade / messenger class for managing various object interactions in a centralised fashion.
 /// All public methods are static so that they can be called without an explicit object reference.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-	private static LevelManager level;
 	private static StateManager state;
+	private static LevelManager level;
 	private static PaddleController paddle;
 	private static GameOverController gameOver;
 	private static YouWinController win;
 	private static Lives lives;
 	private static Score score;
-	private static ExtraLifeCounter extraLifeCounter;
+	private static ExtraLifeCounter oneUpCount;
 
 
 	void Awake ()
 	{
-		level = FindObjectOfType<LevelManager> ();
 		state = FindObjectOfType<StateManager> ();
+		level = FindObjectOfType<LevelManager> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
 		win = FindObjectOfType<YouWinController> ();
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
-		extraLifeCounter = GetComponent<ExtraLifeCounter> ();
+		oneUpCount = GetComponent<ExtraLifeCounter> ();
 	}
 
 
+	/// <summary>
+	/// Load the player's state from StateManager before calculating the first update frame.
+	/// </summary>
 	void Start ()
 	{
-		GetState ();
+		FetchState ();
 	}
 
 
@@ -49,15 +51,9 @@ public class GameManager : MonoBehaviour
 	public static void AddToScore (int scoreValue)
 	{
 		score.Add (scoreValue);
-		if (extraLifeCounter.UpdateCounter (scoreValue)) {
+		if (oneUpCount.UpdateCounter (scoreValue)) {
 			lives.Add (1);
 		}
-	}
-
-
-	public static void SetScore (int scoreValue)
-	{
-		score.Set (scoreValue);
 	}
 
 
@@ -67,39 +63,12 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void SetLives (int livesValue)
-	{
-		lives.Set (livesValue);
-	}
-
-
 	public static void DecrementLives ()
 	{
 		lives.Remove (1);
 	}
 
-
-	public static void SetOneUpCountTo (int countValue)
-	{
-		extraLifeCounter.Set (countValue);
-	}
-
-
-	public static void Win ()
-	{
-		SetState ();
-		level.NextLevel ();
-
-		// Not executed.
-		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
-		win.Lift ();
-	}
-
-	public static void Load (LevelManager.Level lvl)
-	{
-		level.Load (lvl);
-	}
-
+	
 	public static void GameOver ()
 	{
 		gameOver.Lift ();
@@ -107,18 +76,59 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private static void SetState ()
+	public static void Win ()
 	{
-		state.Score = score.Get ();
-		state.Lives = lives.Get ();
-		state.OneUpCount = extraLifeCounter.Get ();
+		StoreState ();
+		level.NextLevel ();
+
+		// Not executed.
+		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
+		win.Lift ();
 	}
 
 
-	private static void GetState ()
+	public static void LoadLevel (LevelManager.Level lvl)
 	{
-		score.Set (state.Score);
-		lives.Set (state.Lives);
-		extraLifeCounter.Set (state.OneUpCount);
+		level.Load (lvl);
+	}
+
+
+	/// <summary>
+	/// Store score, lives and 1upCounter value to the StateManager.
+	/// </summary>
+	private static void StoreState ()
+	{
+		state.Score = score.Get ();
+		state.Lives = lives.Get ();
+		state.OneUpCount = oneUpCount.Get ();
+	}
+
+
+	/// <summary>
+	/// Fetch score, lives and 1upCounter value from the StateManager.
+	/// </summary>
+	private static void FetchState ()
+	{
+		SetScore (state.Score);
+		SetLives (state.Lives);
+		SetOneUpCount (state.OneUpCount);
+	}
+
+		
+	public static void SetScore (int scoreValue)
+	{
+		score.Set (scoreValue);
+	}
+
+
+	public static void SetLives (int livesValue)
+	{
+		lives.Set (livesValue);
+	}
+
+
+	public static void SetOneUpCount (int countValue)
+	{
+		oneUpCount.Set (countValue);
 	}
 }

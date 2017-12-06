@@ -2,11 +2,10 @@
 using System.Collections;
 
 /// <summary>
-/// Maintains the state of player's score and lives through level changes. Utilises the Singleton pattern.
+/// Maintains the state of the player's score and lives through level changes.
 /// </summary>
 public class StateManager : MonoBehaviour
 {
-	public static StateManager instance;
 	private int lives;
 	private int score;
 	private int oneUpCount;
@@ -28,19 +27,31 @@ public class StateManager : MonoBehaviour
 
 
 	/// <summary>
-	/// Create the singleton instance.
+	/// Make the StateManager persist over scene loads and reset it's values.
+	/// GameManager.
 	/// </summary>
 	void Awake ()
 	{
-		if (instance == null) {
-			instance = this;
-		} else if (instance != this) {
-			GameManager.SetScore (Score);
-			GameManager.SetLives (Lives);
-			Destroy (gameObject);
-		}
 		DontDestroyOnLoad (gameObject);
+		Reset ();
+	}
 
-		lives = 3;
+
+	/// <summary>
+	/// Reset the lives and score to initial state.
+	/// </summary>
+	private void Reset ()
+	{
+		Lives = 3;
+		Score = 0;
+	}
+
+
+	/// <summary>
+	/// Destroy this instance.
+	/// </summary>
+	public void Destroy ()
+	{
+		Destroy (gameObject);
 	}
 }

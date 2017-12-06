@@ -1,21 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BrickController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/YouWinController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameOverController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BallController.cs" Line="57" Column="18" />
-      <File FileName="Assets/Scripts/BrickController.cs" Line="56" Column="36" />
-      <File FileName="Assets/Scripts/LifeCounter.cs" Line="5" Column="2" />
-      <File FileName="Assets/Scripts/PaddleController.cs" Line="82" Column="1" />
-      <File FileName="Assets/Scripts/ParticleEffectContainer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Explodable.cs" Line="15" Column="3" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="64" Column="16" />
-      <File FileName="Assets/Scripts/SoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/IntegerAmount.cs" Line="8" Column="2" />
-      <File FileName="Assets/Scripts/Score.cs" Line="14" Column="2" />
-      <File FileName="Assets/Scripts/LevelManager.cs" Line="8" Column="35" />
-      <File FileName="Assets/Scripts/Lives.cs" Line="8" Column="39" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="26" Column="3" />
+      <File FileName="Assets/Scripts/BallController.cs" Line="87" Column="4" />
+      <File FileName="Assets/Scripts/LevelManager.cs" Line="34" Column="27" />
+      <File FileName="Assets/Scripts/GameOverController.cs" Line="21" Column="15" />
+      <File FileName="Assets/Scripts/YouWinController.cs" Line="22" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

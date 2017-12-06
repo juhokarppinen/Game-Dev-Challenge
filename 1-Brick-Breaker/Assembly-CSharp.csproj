@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\LifeCounter.cs" />
      <Compile Include="Assets\Scripts\Lives.cs" />
      <Compile Include="Assets\Scripts\LivesText.cs" />
+     <Compile Include="Assets\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Scripts\PaddleController.cs" />
      <Compile Include="Assets\Scripts\ParticleEffectContainer.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />

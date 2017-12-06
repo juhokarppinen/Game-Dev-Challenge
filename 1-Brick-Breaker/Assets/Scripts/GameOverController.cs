@@ -15,10 +15,11 @@ public class GameOverController : MonoBehaviour
 		input = GetComponent<InputManager> ();
 	}
 
+
 	void Update ()
 	{
 		if (gameIsOver && input.LaunchButtonDown)
-			GameManager.Load (LevelManager.Level.GAMEOVER);
+			GameManager.LoadLevel (LevelManager.Level.GAMEOVER);
 
 		float x = transform.position.x;
 		float y = transform.position.y;
