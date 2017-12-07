@@ -10,12 +10,12 @@ public class LevelManager : MonoBehaviour
 {
 	public enum Level
 	{
-		MENU,
+		MAIN_MENU,
+		GAMEWIN,
+		GAMEOVER,
 		FIRST_LEVEL,
 		L_00,
 		L_01,
-		GAMEWIN,
-		GAMEOVER
 	}
 
 	public static Dictionary<Level,string> levels;
@@ -27,12 +27,12 @@ public class LevelManager : MonoBehaviour
 	void Start ()
 	{
 		levels = new Dictionary<Level,string> {
-			{ Level.MENU, "Main_Menu" },
+			{ Level.MAIN_MENU, "Menu_Main" },
+			{ Level.GAMEOVER, "Menu_Main" },
+			{ Level.GAMEWIN, "Menu_Win" },
 			{ Level.FIRST_LEVEL, "Game_Level_00" },
 			{ Level.L_00, "Game_Level_00" },
-			{ Level.L_01, "Game_Level_00" },
-			{ Level.GAMEOVER, "Main_Menu" },
-			{ Level.GAMEWIN, "Main_Menu" }
+			{ Level.L_01, "Game_Level_00" }
 		};
 	}
 

@@ -1,30 +1,29 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Menu manager.
+/// Menu manager. Handles the creation and destruction of the StateManager.
 /// </summary>
 public class MenuManager : MonoBehaviour
 {
 	public GameObject stateManager;
 
 	/// <summary>
-	/// Makes sure that any excess StateManagers are destroyed.
+	/// Remove the previous StateManager and instantiate a new one before starting a new game.
 	/// </summary>
-	void Awake ()
+	public void StartGame ()
 	{
-		StateManager state = FindObjectOfType<StateManager> ();
-		if (state) {
-			state.Destroy ();
-		}
+		Destroy (FindObjectOfType<StateManager> ());
+		Instantiate (stateManager);
+
+		FindObjectOfType<LevelManager> ().Load (LevelManager.Level.FIRST_LEVEL);
 	}
 
 
 	/// <summary>
-	/// Starts a new game and instantiates a new StateManager.
+	/// Return to the main menu.
 	/// </summary>
-	public void StartGame ()
+	public void ReturnToMain ()
 	{
-		Instantiate (stateManager);
-		FindObjectOfType<LevelManager> ().Load (LevelManager.Level.FIRST_LEVEL);
+		FindObjectOfType<LevelManager> ().Load (LevelManager.Level.MAIN_MENU);
 	}
 }

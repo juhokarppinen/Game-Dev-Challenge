@@ -80,10 +80,6 @@ public class GameManager : MonoBehaviour
 	{
 		StoreState ();
 		level.NextLevel ();
-
-		// Not executed.
-		SoundManager.Play (SoundManager.Sound.Win, Vector3.zero);
-		win.Lift ();
 	}
 
 
