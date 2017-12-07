@@ -6,6 +6,8 @@
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+	public StateManager stateManager;
+
 	private static StateManager state;
 	private static LevelManager level;
 	private static PaddleController paddle;
@@ -17,9 +19,16 @@ public class GameManager : MonoBehaviour
 	private static ExtraLifeCounter oneUpCount;
 
 
+	/// <summary>
+	/// Set object references. If a StateManager isn't found, instantiate a new one.
+	/// </summary>
 	void Awake ()
 	{
 		state = FindObjectOfType<StateManager> ();
+		if (!state) {
+			state = Instantiate (stateManager).GetComponent<StateManager> ();
+		}
+
 		level = FindObjectOfType<LevelManager> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();

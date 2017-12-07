@@ -47,10 +47,11 @@ public class BallController : MonoBehaviour
 	}
 
 
-	/* The only triggers in the game are "shredders" which catch any falling balls */
 	void OnTriggerEnter (Collider other)
 	{
-		LoseBall ();
+		if (other.CompareTag ("Shredder")) {
+			LoseBall ();
+		}
 	}
 
 
