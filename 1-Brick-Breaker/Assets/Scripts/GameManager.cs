@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	private static YouWinController win;
 	private static Lives lives;
 	private static Score score;
+	private static ScoreMultiplier scoreMultiplier;
 	private static ExtraLifeCounter oneUpCount;
 
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 		win = FindObjectOfType<YouWinController> ();
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
+		scoreMultiplier = GetComponent<ScoreMultiplier> ();
 		oneUpCount = GetComponent<ExtraLifeCounter> ();
 	}
 
@@ -40,17 +42,21 @@ public class GameManager : MonoBehaviour
 
 	public static void BallLost (bool noBallsInPlay)
 	{
-		if (noBallsInPlay && lives.Get () <= 0) {
-			GameOver ();
-		} else {
+		if (noBallsInPlay) {
+			scoreMultiplier.Reset ();
 			paddle.MakeNormal ();
+		}
+
+		if (noBallsInPlay && !HasLives ()) {
+			GameOver ();
 		}
 	}
 
 
 	public static void AddToScore (int scoreValue)
 	{
-		score.Add (scoreValue);
+		score.Add (scoreValue * scoreMultiplier.Value);
+		scoreMultiplier.Add ();
 		if (oneUpCount.UpdateCounter (scoreValue)) {
 			lives.Add (1);
 		}
