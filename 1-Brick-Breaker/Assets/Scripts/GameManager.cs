@@ -3,6 +3,7 @@
 /// <summary>
 /// A global facade / messenger class for managing various object interactions in a centralised fashion.
 /// All public methods are static so that they can be called without an explicit object reference.
+/// Will instantiate a new StateManager if it doesn't find one.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class GameManager : MonoBehaviour
 	private static LevelManager level;
 	private static PaddleController paddle;
 	private static GameOverController gameOver;
-	private static YouWinController win;
 	private static Lives lives;
 	private static Score score;
 	private static ScoreMultiplier scoreMultiplier;
@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
 		level = FindObjectOfType<LevelManager> ();
 		paddle = FindObjectOfType<PaddleController> ();
 		gameOver = FindObjectOfType<GameOverController> ();
-		win = FindObjectOfType<YouWinController> ();
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
 		scoreMultiplier = GetComponent<ScoreMultiplier> ();

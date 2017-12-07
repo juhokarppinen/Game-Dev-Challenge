@@ -44,13 +44,4 @@ public class StateManager : MonoBehaviour
 		Lives = 3;
 		Score = 0;
 	}
-
-
-	/// <summary>
-	/// Destroy this instance.
-	/// </summary>
-	public void Destroy ()
-	{
-		Destroy (gameObject);
-	}
 }
