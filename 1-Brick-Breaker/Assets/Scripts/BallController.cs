@@ -145,9 +145,16 @@ public class BallController : MonoBehaviour
 	}
 
 
+	/// <summary>
+	/// Activate the powerball if it's not already activated.
+	/// </summary>
 	public void ActivatePowerBall ()
 	{
-		GameObject newPB = (GameObject)Instantiate (powerBall, transform.position, Quaternion.identity);
-		newPB.transform.parent = gameObject.transform;
+		PowerBall pb = FindObjectOfType<PowerBall> ();
+		if (!pb) {
+			GameObject newPB = (GameObject)Instantiate (powerBall, transform.position, Quaternion.identity);
+			newPB.transform.parent = gameObject.transform;
+		}
+		
 	}
 }

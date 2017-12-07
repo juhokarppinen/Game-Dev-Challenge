@@ -4,15 +4,13 @@ public class BrickController : MonoBehaviour
 {
 	public int scoreValue;
 	public int health;
-
-	private static int count = 0;
+	public GameObject powerBallPowerUp;
 
 	private int maxHealth;
 	private Material m;
 
 	void Start ()
 	{
-		count++;
 		maxHealth = health;
 		m = GetComponent<Renderer> ().material;
 	}
@@ -38,14 +36,23 @@ public class BrickController : MonoBehaviour
 	/// </summary>
 	private void DestroyBrick ()
 	{
-		GameManager.AddToScore (scoreValue);
+		if (Random.value > .90f) {
+			DropPowerUp ();
+		}
 
-		count--;
-		if (count <= 0)
-			GameManager.Win ();
+		GameManager.AddToScore (scoreValue);
 		
 		GetComponent<Explodable> ().Explode (transform.position);
 		Destroy (gameObject);
+	}
+
+
+	private void DropPowerUp ()
+	{
+		Instantiate (
+			powerBallPowerUp, 
+			new Vector3 (transform.position.x, .9f, transform.position.z), 
+			Quaternion.Euler (0, 0, 90));
 	}
 
 
@@ -79,6 +86,7 @@ public class BrickController : MonoBehaviour
 	{
 		if (other.CompareTag ("PowerBall")) {
 			DestroyBrick ();
+			other.GetComponent<PowerBall> ().BrickHit ();
 		}
 	}
 }

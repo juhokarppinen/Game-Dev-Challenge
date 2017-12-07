@@ -10,7 +10,10 @@ public class MenuManager : MonoBehaviour
 	/// </summary>
 	public void StartGame ()
 	{
-		Destroy (FindObjectOfType<StateManager> ());
+		StateManager stateManager = FindObjectOfType<StateManager> ();
+		if (stateManager)
+			Destroy (stateManager.gameObject);
+		
 		FindObjectOfType<LevelManager> ().Load (LevelManager.Level.FIRST_LEVEL);
 	}
 

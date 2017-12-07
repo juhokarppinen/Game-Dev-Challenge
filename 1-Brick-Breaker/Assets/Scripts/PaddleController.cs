@@ -113,4 +113,17 @@ public class PaddleController : MonoBehaviour
 			newBall.GetComponent<Rigidbody> ().velocity = new Vector3 (x, 0, z);
 		}
 	}
+
+
+	/// <summary>
+	/// Pick up powerups.
+	/// </summary>
+	/// <param name="other">Other.</param>
+	void OnTriggerEnter (Collider other)
+	{
+		if (other.CompareTag ("PowerUp")) {
+			Destroy (other.gameObject);
+			GameManager.GotPowerUp ();
+		}
+	}
 }

@@ -63,9 +63,10 @@ public class GameManager : MonoBehaviour
 
 	public static void AddToScore (int scoreValue)
 	{
-		score.Add (scoreValue * scoreMultiplier.Value);
+		int points = scoreValue * scoreMultiplier.Value;
+		score.Add (points);
 		scoreMultiplier.Add ();
-		if (oneUpCount.UpdateCounter (scoreValue)) {
+		if (oneUpCount.UpdateCounter (points)) {
 			lives.Add (1);
 		}
 	}
@@ -146,8 +147,17 @@ public class GameManager : MonoBehaviour
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.P)) {
-			FindObjectOfType<BallController> ().ActivatePowerBall ();
+		BrickController someBrick = FindObjectOfType<BrickController> ();
+		if (!someBrick) {
+			Win ();
 		}
+	}
+
+
+	public static void GotPowerUp ()
+	{
+		BallController latestBall = FindObjectOfType<BallController> ();
+		if (latestBall)
+			latestBall.ActivatePowerBall ();
 	}
 }
