@@ -52,7 +52,6 @@
      <Compile Include="Assets\Scripts\ExtraLifeCounter.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameOverController.cs" />
-     <Compile Include="Assets\Scripts\HelpPanelController.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\IntegerAmount.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
