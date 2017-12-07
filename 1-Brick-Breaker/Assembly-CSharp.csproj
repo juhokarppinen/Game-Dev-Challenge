@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\MultiplierText.cs" />
      <Compile Include="Assets\Scripts\PaddleController.cs" />
      <Compile Include="Assets\Scripts\ParticleEffectContainer.cs" />
+     <Compile Include="Assets\Scripts\PowerBall.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\ScoreMultiplier.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />

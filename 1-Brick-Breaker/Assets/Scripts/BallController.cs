@@ -3,6 +3,7 @@
 public class BallController : MonoBehaviour
 {
 	public float initialSpeed;
+	public GameObject powerBall;
 	public AudioClip ballBouncesFromBrick;
 	public AudioClip ballBouncesFromPaddle;
 	public AudioClip ballBouncesFromWall;
@@ -134,5 +135,12 @@ public class BallController : MonoBehaviour
 	public void Explode ()
 	{
 		Destroy (gameObject);
+	}
+
+
+	public void ActivatePowerBall ()
+	{
+		GameObject newPB = (GameObject)Instantiate (powerBall, transform.position, Quaternion.identity);
+		newPB.transform.parent = gameObject.transform;
 	}
 }

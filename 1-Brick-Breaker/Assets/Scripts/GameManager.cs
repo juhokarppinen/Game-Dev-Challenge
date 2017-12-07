@@ -141,4 +141,12 @@ public class GameManager : MonoBehaviour
 	{
 		oneUpCount.Set (countValue);
 	}
+
+
+	void Update ()
+	{
+		if (Input.GetKeyDown (KeyCode.P)) {
+			FindObjectOfType<BallController> ().ActivatePowerBall ();
+		}
+	}
 }
