@@ -14,6 +14,13 @@ public class BallController : MonoBehaviour
 
 	private static int balls;
 
+	public static int RetrieveBallsInPlay ()
+	{
+		int ballsInPlay = balls;
+		balls = 0;
+		return ballsInPlay;
+	}
+
 	private int speedLevel = 0;
 	private int paddleHits = 0;
 	private float[] speedLevels = { 10.0f, 12.0f, 14.0f, 16.0f, 18.0f };

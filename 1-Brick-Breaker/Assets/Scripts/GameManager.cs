@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
 
 	public static void Win ()
 	{
+		lives.Add (BallController.RetrieveBallsInPlay ());
 		StoreState ();
 		level.NextLevel ();
 	}
