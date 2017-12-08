@@ -1,25 +1,32 @@
 ﻿using UnityEngine;
 
-public class Score : IntegerAmount
+public class Score : MonoBehaviour
 {
-	private ScoreText score;
+	private ScoreText scoreText;
+	private int score;
 
 	void Awake ()
 	{
-		score = FindObjectOfType<ScoreText> ();
+		scoreText = FindObjectOfType<ScoreText> ();
 	}
 
 
-	public override void Add (int amount)
+	public void Add (int amount)
 	{
-		base.Add (amount);
-		score.UpdateText (this.amount);
+		score += amount;
+		scoreText.UpdateText (score);
 	}
 
 
-	public override void Set (int amount)
+	public void Set (int amount)
 	{
-		base.Set (amount);
-		score.UpdateText (this.amount);
+		score = amount;
+		scoreText.UpdateText (score);
+	}
+
+
+	public int Get ()
+	{
+		return score;
 	}
 }

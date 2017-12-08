@@ -3,9 +3,10 @@
 /// <summary>
 /// Takes care of tracking lives and updating the UI element which displays them.
 /// </summary>
-public class Lives : IntegerAmount
+public class Lives : MonoBehaviour
 {
 	private LivesText livesText;
+	private int lives;
 
 	void Awake ()
 	{
@@ -15,7 +16,7 @@ public class Lives : IntegerAmount
 
 	void Start ()
 	{
-		livesText.UpdateText (this.amount);
+		livesText.UpdateText (lives);
 	}
 
 
@@ -23,10 +24,10 @@ public class Lives : IntegerAmount
 	/// Remove the specified amount of lives and update the UI element accordingly.
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public override void Remove (int amount)
+	public void Remove (int amount)
 	{
-		base.Remove (amount);
-		livesText.UpdateText (this.amount);
+		lives -= amount;
+		livesText.UpdateText (lives);
 	}
 
 
@@ -34,10 +35,10 @@ public class Lives : IntegerAmount
 	/// Add the specified amount of lives and update the UI element accordingly.
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public override void Add (int amount)
+	public void Add (int amount)
 	{
-		base.Add (amount);
-		livesText.UpdateText (this.amount);
+		lives += amount;
+		livesText.UpdateText (lives);
 	}
 
 
@@ -45,9 +46,15 @@ public class Lives : IntegerAmount
 	/// Set lives to the specified amount and update the associated UI element.
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public override void Set (int amount)
+	public void Set (int amount)
 	{
-		base.Set (amount);
-		livesText.UpdateText (this.amount);
+		lives = amount;
+		livesText.UpdateText (lives);
+	}
+
+
+	public int Get ()
+	{
+		return lives;
 	}
 }
