@@ -89,18 +89,6 @@ public class BrickController : MonoBehaviour
 	}
 
 
-	/// <summary>
-	/// REMOVE FROM PRODUCTION VERSION
-	/// 
-	/// Deal damage to all bricks.
-	/// </summary>
-	void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.T))
-			OnCollisionEnter (null);
-	}
-
-
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.CompareTag ("PowerBall")) {

@@ -77,9 +77,6 @@ public class PaddleController : GameManagerCollaborator
 			Left = -playAreaWidth;
 		if (Right > playAreaWidth)
 			Right = playAreaWidth;
-
-		if (Input.GetKeyDown (KeyCode.B))
-			MakeSmaller ();
 	}
 
 
