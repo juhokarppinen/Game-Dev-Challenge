@@ -37,7 +37,7 @@ public class BrickController : MonoBehaviour
 	/// </summary>
 	private void DestroyBrick ()
 	{
-		if (Random.value > .90f) {
+		if (Random.value > 0.75f) {
 			DropItem ();
 		}
 

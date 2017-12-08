@@ -7,6 +7,7 @@
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+	public int maxLives;
 	public StateManager stateManager;
 
 	private static StateManager state;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 		state = FindObjectOfType<StateManager> ();
 		if (!state) {
 			state = Instantiate (stateManager).GetComponent<StateManager> ();
+			state.Lives = maxLives;
 		}
 
 		level = FindObjectOfType<LevelManager> ();
