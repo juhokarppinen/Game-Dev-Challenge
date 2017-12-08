@@ -4,7 +4,8 @@ public class BrickController : MonoBehaviour
 {
 	public int scoreValue;
 	public int health;
-	public GameObject powerBallPowerUp;
+	public GameObject powerUpPowerBall;
+	public GameObject powerDownHalfSize;
 
 	private int maxHealth;
 	private Material m;
@@ -37,7 +38,7 @@ public class BrickController : MonoBehaviour
 	private void DestroyBrick ()
 	{
 		if (Random.value > .90f) {
-			DropPowerUp ();
+			DropItem ();
 		}
 
 		GameManager.AddToScore (scoreValue);
@@ -47,10 +48,21 @@ public class BrickController : MonoBehaviour
 	}
 
 
-	private void DropPowerUp ()
+	/// <summary>
+	/// Select an item to drop based on a predefined probability table.
+	/// </summary>
+	private void DropItem ()
 	{
+		GameObject item;
+		float value = Random.value;
+		if (value >= 0.75f) {
+			item = powerUpPowerBall;
+		} else {
+			item = powerDownHalfSize;
+		}
+
 		Instantiate (
-			powerBallPowerUp, 
+			item, 
 			new Vector3 (transform.position.x, .9f, transform.position.z), 
 			Quaternion.Euler (0, 0, 90));
 	}

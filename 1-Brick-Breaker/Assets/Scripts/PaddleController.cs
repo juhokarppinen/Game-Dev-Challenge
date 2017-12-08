@@ -7,11 +7,13 @@ public class PaddleController : MonoBehaviour
 	public bool autoPlay;
 	public GameObject ball;
 	public AudioClip paddleSmaller;
+	public AudioClip paddleBigger;
 
 	private const float playAreaWidth = 14f;
 
 	private Renderer paddleRenderer;
 	private InputManager input;
+	private float smallTimer = 0;
 
 	public bool IsSmall {
 		get { return gameObject.transform.localScale.x == 0.5f; }
@@ -55,6 +57,11 @@ public class PaddleController : MonoBehaviour
 	{
 		if (input.LaunchButtonDown)
 			LaunchBall ();
+		if (smallTimer > 0) {
+			smallTimer -= Time.deltaTime;
+		} else if (IsSmall) {
+			MakeNormal ();
+		}
 	}
 
 
@@ -85,6 +92,8 @@ public class PaddleController : MonoBehaviour
 
 	public void MakeSmaller ()
 	{
+		smallTimer += 10;
+
 		if (IsSmall)
 			return;
 		
@@ -96,6 +105,7 @@ public class PaddleController : MonoBehaviour
 	public void MakeNormal ()
 	{
 		gameObject.transform.localScale = new Vector3 (1f, 1f, 1f);
+		AudioSource.PlayClipAtPoint (paddleBigger, transform.position);
 	}
 
 
@@ -124,6 +134,9 @@ public class PaddleController : MonoBehaviour
 		if (other.CompareTag ("PowerUp")) {
 			Destroy (other.gameObject);
 			GameManager.GotPowerUp ();
+		} else if (other.CompareTag ("PowerDown")) {
+			Destroy (other.gameObject);
+			MakeSmaller ();
 		}
 	}
 }
