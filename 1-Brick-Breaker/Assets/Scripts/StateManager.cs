@@ -27,7 +27,6 @@ public class StateManager : MonoBehaviour
 
 	/// <summary>
 	/// Make the StateManager persist over scene loads and reset it's values.
-	/// GameManager.
 	/// </summary>
 	void Awake ()
 	{

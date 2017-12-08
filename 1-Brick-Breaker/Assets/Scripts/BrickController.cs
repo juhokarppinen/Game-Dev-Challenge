@@ -9,6 +9,13 @@ public class BrickController : MonoBehaviour
 
 	private int maxHealth;
 	private Material m;
+	private GameManager gameManager;
+
+	void Awake ()
+	{
+		gameManager = FindObjectOfType<GameManager> ();
+	}
+
 
 	void Start ()
 	{
@@ -41,7 +48,7 @@ public class BrickController : MonoBehaviour
 			DropItem ();
 		}
 
-		GameManager.AddToScore (scoreValue);
+		gameManager.AddToScore (scoreValue);
 		
 		GetComponent<Explodable> ().Explode (transform.position);
 		Destroy (gameObject);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PaddleController : MonoBehaviour
+public class PaddleController : GameManagerCollaborator
 {
 	public float keyboardSpeedScale;
 	public float mouseSpeedScale;
@@ -111,8 +111,8 @@ public class PaddleController : MonoBehaviour
 
 	private void LaunchBall ()
 	{
-		if (GameManager.HasLives ()) {
-			GameManager.DecrementLives ();
+		if (gameManager.HasLives ()) {
+			gameManager.DecrementLives ();
 			GameObject newBall = (GameObject)Instantiate (ball);
 			newBall.transform.position = transform.position + new Vector3 (0, 0, 1);
 
@@ -133,7 +133,7 @@ public class PaddleController : MonoBehaviour
 	{
 		if (other.CompareTag ("PowerUp")) {
 			Destroy (other.gameObject);
-			GameManager.GotPowerUp ();
+			gameManager.GotPowerUp ();
 		} else if (other.CompareTag ("PowerDown")) {
 			Destroy (other.gameObject);
 			MakeSmaller ();

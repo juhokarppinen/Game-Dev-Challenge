@@ -42,7 +42,7 @@ public class BallController : MonoBehaviour
 	private void LoseBall ()
 	{
 		balls -= 1;
-		GameManager.BallLost (balls <= 0);
+		FindObjectOfType<GameManager> ().BallLost (balls <= 0);
 
 		AudioSource.PlayClipAtPoint (ballLost, transform.position);
 		Destroy (gameObject);
@@ -155,6 +155,5 @@ public class BallController : MonoBehaviour
 			GameObject newPB = (GameObject)Instantiate (powerBall, transform.position, Quaternion.identity);
 			newPB.transform.parent = gameObject.transform;
 		}
-		
 	}
 }

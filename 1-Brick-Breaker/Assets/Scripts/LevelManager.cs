@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
 		L_01,
 	}
 
-	public static Dictionary<Level,string> levels;
+	public Dictionary<Level,string> levels;
 
 
 	/// <summary>

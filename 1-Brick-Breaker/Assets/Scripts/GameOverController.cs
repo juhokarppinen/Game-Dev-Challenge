@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverController : MonoBehaviour
+public class GameOverController : GameManagerCollaborator
 {
 	private float ySpeed = 0f;
 	private float maxY = 20.0f;
@@ -18,7 +18,7 @@ public class GameOverController : MonoBehaviour
 	void Update ()
 	{
 		if (gameIsOver && input.LaunchButtonDown)
-			GameManager.LoadLevel (LevelManager.Level.GAMEOVER);
+			gameManager.LoadLevel (LevelManager.Level.GAMEOVER);
 
 		float x = transform.position.x;
 		float y = transform.position.y;

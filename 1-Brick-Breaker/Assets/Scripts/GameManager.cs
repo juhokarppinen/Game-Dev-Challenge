@@ -2,7 +2,7 @@
 
 /// <summary>
 /// A global facade / messenger class for managing various object interactions in a centralised fashion.
-/// All public methods are static so that they can be called without an explicit object reference.
+/// All public methods are so that they can be called without an explicit object reference.
 /// Will instantiate a new StateManager if it doesn't find one.
 /// </summary>
 public class GameManager : MonoBehaviour
@@ -10,18 +10,19 @@ public class GameManager : MonoBehaviour
 	public int maxLives;
 	public StateManager stateManager;
 
-	private static StateManager state;
-	private static LevelManager level;
-	private static PaddleController paddle;
-	private static GameOverController gameOver;
-	private static Lives lives;
-	private static Score score;
-	private static ScoreMultiplier scoreMultiplier;
-	private static ExtraLifeCounter oneUpCount;
+	private StateManager state;
+	private LevelManager level;
+	private PaddleController paddle;
+	private GameOverController gameOver;
+	private Lives lives;
+	private Score score;
+	private ScoreMultiplier scoreMultiplier;
+	private ExtraLifeCounter oneUpCount;
 
 
 	/// <summary>
-	/// Set object references. If a StateManager isn't found, instantiate a new one.
+	/// Set object references and pass this reference to objects. 
+	/// If a StateManager isn't found, instantiate a new one.
 	/// </summary>
 	void Awake ()
 	{
@@ -32,8 +33,13 @@ public class GameManager : MonoBehaviour
 		}
 
 		level = FindObjectOfType<LevelManager> ();
+
 		paddle = FindObjectOfType<PaddleController> ();
+		paddle.SetGameManager (this);
+
 		gameOver = FindObjectOfType<GameOverController> ();
+		gameOver.SetGameManager (this);
+
 		lives = GetComponent<Lives> ();
 		score = GetComponent<Score> ();
 		scoreMultiplier = GetComponent<ScoreMultiplier> ();
@@ -50,7 +56,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void BallLost (bool noBallsInPlay)
+	public void BallLost (bool noBallsInPlay)
 	{
 		if (noBallsInPlay) {
 			scoreMultiplier.Reset ();
@@ -63,7 +69,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void AddToScore (int scoreValue)
+	public void AddToScore (int scoreValue)
 	{
 		int points = scoreValue * scoreMultiplier.Value;
 		score.Add (points);
@@ -74,26 +80,26 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static bool HasLives ()
+	public bool HasLives ()
 	{
 		return (lives.Get () > 0);
 	}
 
 
-	public static void DecrementLives ()
+	public void DecrementLives ()
 	{
 		lives.Remove (1);
 	}
 
 	
-	public static void GameOver ()
+	public void GameOver ()
 	{
 		gameOver.Lift ();
 		paddle.Explode ();
 	}
 
 
-	public static void Win ()
+	public void Win ()
 	{
 		lives.Add (BallController.RetrieveBallsInPlay ());
 		StoreState ();
@@ -101,7 +107,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void LoadLevel (LevelManager.Level lvl)
+	public void LoadLevel (LevelManager.Level lvl)
 	{
 		level.Load (lvl);
 	}
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Store score, lives and 1upCounter value to the StateManager.
 	/// </summary>
-	private static void StoreState ()
+	private void StoreState ()
 	{
 		state.Score = score.Get ();
 		state.Lives = lives.Get ();
@@ -121,7 +127,7 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Fetch score, lives and 1upCounter value from the StateManager.
 	/// </summary>
-	private static void FetchState ()
+	private void FetchState ()
 	{
 		SetScore (state.Score);
 		SetLives (state.Lives);
@@ -129,19 +135,19 @@ public class GameManager : MonoBehaviour
 	}
 
 		
-	public static void SetScore (int scoreValue)
+	public void SetScore (int scoreValue)
 	{
 		score.Set (scoreValue);
 	}
 
 
-	public static void SetLives (int livesValue)
+	public void SetLives (int livesValue)
 	{
 		lives.Set (livesValue);
 	}
 
 
-	public static void SetOneUpCount (int countValue)
+	public void SetOneUpCount (int countValue)
 	{
 		oneUpCount.Set (countValue);
 	}
@@ -156,7 +162,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	public static void GotPowerUp ()
+	public void GotPowerUp ()
 	{
 		BallController latestBall = FindObjectOfType<BallController> ();
 		if (latestBall)
