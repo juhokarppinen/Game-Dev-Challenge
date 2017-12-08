@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 	private Score score;
 	private ScoreMultiplier scoreMultiplier;
 	private ExtraLifeCounter oneUpCount;
+	private bool won = false;
 
 
 	/// <summary>
@@ -33,7 +34,6 @@ public class GameManager : MonoBehaviour
 		}
 
 		level = FindObjectOfType<LevelManager> ();
-
 		paddle = FindObjectOfType<PaddleController> ();
 		paddle.SetGameManager (this);
 
@@ -101,8 +101,16 @@ public class GameManager : MonoBehaviour
 
 	public void Win ()
 	{
+		won = true;
 		lives.Add (BallController.RetrieveBallsInPlay ());
 		StoreState ();
+		SoundManager.Play (SoundManager.Sound.Win);
+		Invoke ("LoadNext", 2);
+	}
+
+
+	private void LoadNext ()
+	{
 		level.NextLevel ();
 	}
 
@@ -153,8 +161,18 @@ public class GameManager : MonoBehaviour
 	}
 
 
+	/// <summary>
+	/// Check if there are any bricks on the playfield. FindObjectOfType is used here, because 
+	/// using a static integer in the brick class for tracking the amount of bricks was prone 
+	/// to bugs when a PowerBall plowed through multiple bricks.
+	/// 
+	/// The 'won' boolean is used to prevent multiple calls to Win -- and also to prevent unnecessary 
+	/// calls to FindObjectOfType.
+	/// </summary>
 	void Update ()
 	{
+		if (won)
+			return;
 		BrickController someBrick = FindObjectOfType<BrickController> ();
 		if (!someBrick) {
 			Win ();
