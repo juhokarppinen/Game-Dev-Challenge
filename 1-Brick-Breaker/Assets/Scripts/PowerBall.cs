@@ -4,6 +4,14 @@ public class PowerBall : MonoBehaviour
 {
 	private float powerTime = 5.0f;
 	private int health = 10;
+	public AudioClip powerBallSound;
+
+
+	void Start ()
+	{
+		AudioSource.PlayClipAtPoint (powerBallSound, transform.position);
+	}
+
 
 	void Update ()
 	{
