@@ -1,12 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BrickController.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.cs" Line="26" Column="3" />
-      <File FileName="Assets/Scripts/BallController.cs" Line="87" Column="4" />
-      <File FileName="Assets/Scripts/LevelManager.cs" Line="34" Column="27" />
-      <File FileName="Assets/Scripts/GameOverController.cs" Line="21" Column="15" />
-      <File FileName="Assets/Scripts/YouWinController.cs" Line="22" Column="15" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="41" Column="1" />
+      <File FileName="Assets/Scripts/BallController.cs" Line="45" Column="3" />
+      <File FileName="Assets/Scripts/PaddleController.cs" Line="79" Column="26" />
+      <File FileName="Assets/Scripts/BrickController.cs" Line="89" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

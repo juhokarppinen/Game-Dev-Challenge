@@ -48,10 +48,12 @@ public class GameManager : MonoBehaviour
 
 
 	/// <summary>
+	/// Make the mouse cursor invisible during play.
 	/// Load the player's state from StateManager before calculating the first update frame.
 	/// </summary>
 	void Start ()
 	{
+		Cursor.visible = false;
 		FetchState ();
 	}
 

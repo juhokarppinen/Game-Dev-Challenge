@@ -6,6 +6,15 @@
 public class MenuManager : MonoBehaviour
 {
 	/// <summary>
+	/// Set the mouse cursor visible when in menu.
+	/// </summary>
+	void Start ()
+	{
+		Cursor.visible = true;
+	}
+
+
+	/// <summary>
 	/// If a StateManager instance still persists from a previous game, destroy it before starting a new game.
 	/// </summary>
 	public void StartGame ()
